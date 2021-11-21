@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import LandingPage from './layouts/LandingPage';
 import { ThemeProvider, createTheme } from '@mui/material';
+import HomeScreen from './layouts/HomeScreen';
 
 const theme = createTheme({
   palette: {
@@ -21,6 +22,7 @@ const App = () => {
     <Fragment>
       <ThemeProvider theme={theme}>
         <LandingPage className="landing" />
+        <HomeScreen />
       </ThemeProvider>
     </Fragment>
   );
