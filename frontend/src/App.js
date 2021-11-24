@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import LandingPage from './layouts/LandingPage';
 import { ThemeProvider, createTheme } from '@mui/material';
 import HomeScreen from './layouts/HomeScreen';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 const theme = createTheme({
   palette: {
@@ -19,12 +20,16 @@ const theme = createTheme({
 
 const App = () => {
   return (
-    <Fragment>
-      <ThemeProvider theme={theme}>
-        <LandingPage className="landing" />
-        <HomeScreen />
-      </ThemeProvider>
-    </Fragment>
+    <Router>
+      <Fragment>
+        <ThemeProvider theme={theme}>
+          <Routes>
+            <Route path="/" element={<LandingPage />} exact />
+            <Route path="/products" element={<HomeScreen />} exact />
+          </Routes>
+        </ThemeProvider>
+      </Fragment>
+    </Router>
   );
 };
 

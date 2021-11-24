@@ -58,8 +58,8 @@ const LandingPage = () => {
                     variant="contained"
                     startIcon={<ExitToAppIcon />}
                     sx={{ marginLeft: '20px' }}
-                    href="#!"
                     color="buttonColor"
+                    href="/#!"
                   >
                     Log In
                   </Button>

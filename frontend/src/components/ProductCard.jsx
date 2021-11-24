@@ -1,32 +1,43 @@
 import React, { Fragment } from 'react';
-import { Card, CardMedia, CardContent, Typography } from '@mui/material';
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  Grid,
+  Item,
+} from '@mui/material';
+import Rating from './Rating';
+import { grey } from '@mui/material/colors';
 
 const ProductCard = ({ product }) => {
-  // console.log(require('../images/airpods.jpg').default);
-  // Object.keys(images).map((key, index) => console.log(images[key].default));
-  console.log(product);
-
   return (
-    <Fragment>
-      <Card sx={{ width: '200px' }}>
-        <CardMedia
-          sx={{ height: 140 }}
-          component="img"
-          square
-          image={product.image}
-          alt="asi"
-        ></CardMedia>
+    <Grid item xs={12} md={6} lg={3}>
+      <Card elevation={2}>
+        <a href={`/products/${product._id}`} style={{ textDecoration: 'none' }}>
+          <CardMedia
+            component="img"
+            square
+            image={product.image}
+            alt="product-img"
+          ></CardMedia>
+        </a>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+          <Typography gutterBottom variant="h6" component="div">
             {product.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          <Typography variant="subtitle2" color={grey[400]} gutterBottom>
+            <Rating
+              totalRating={product.rating}
+              numReviews={product.numReviews}
+            />
+          </Typography>
+          <Typography gutterBottom variant="h5" component="div">
+            $ {product.price}
           </Typography>
         </CardContent>
       </Card>
-    </Fragment>
+    </Grid>
   );
 };
 
