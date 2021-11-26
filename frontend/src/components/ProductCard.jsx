@@ -1,27 +1,24 @@
-import React, { Fragment } from 'react';
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-  Grid,
-  Item,
-} from '@mui/material';
+import React from 'react';
+import { Card, CardMedia, CardContent, Typography, Grid } from '@mui/material';
 import Rating from './Rating';
 import { grey } from '@mui/material/colors';
+import { Link } from 'react-router-dom';
 
 const ProductCard = ({ product }) => {
   return (
     <Grid item xs={12} md={6} lg={3}>
       <Card elevation={2}>
-        <a href={`/products/${product._id}`} style={{ textDecoration: 'none' }}>
+        <Link
+          to={`/products/${product._id}`}
+          style={{ textDecoration: 'none' }}
+        >
           <CardMedia
             component="img"
             square
             image={product.image}
             alt="product-img"
           ></CardMedia>
-        </a>
+        </Link>
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
             {product.name}

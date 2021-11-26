@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/AtharvaK1708/VFL-v2.0.1#readme",
   "dependencies": {
+    "@mui/styles": "^5.2.1",
     "react-masonry-css": "^1.0.16",
     "react-router-dom": "^6.0.2"
   }
