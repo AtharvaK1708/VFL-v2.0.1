@@ -1,5 +1,4 @@
-import React from 'react';
-import products from '../products';
+import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import {
   Button,
@@ -17,6 +16,7 @@ import MainHeader from './MainHeader';
 import { makeStyles } from '@mui/styles';
 import Rating from '../components/Rating';
 import { grey } from '@mui/material/colors';
+import axios from 'axios';
 
 const useStyles = makeStyles({
   productImage: {
@@ -50,8 +50,20 @@ const useStyles = makeStyles({
 
 const ProductScreen = () => {
   const params = useParams();
-  const product = products.find((p) => p._id === params.id);
+  // const product = products.find((p) => p._id === params.id);
   const myClasses = useStyles();
+
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    const getProduct = async () => {
+      const res = await axios.get(`/api/products/${params.id}`);
+
+      setProduct(res.data);
+    };
+
+    getProduct();
+  }, []);
 
   return (
     <div>
