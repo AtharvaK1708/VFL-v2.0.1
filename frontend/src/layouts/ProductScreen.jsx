@@ -38,8 +38,8 @@ const useStyles = makeStyles({
     marginTop: '5.5rem',
   },
   addToCartButton: {
-    marginLeft: '3rem',
-    borderRadius: '0',
+    left: '30%',
+    width: '200px',
   },
 
   addToCartPaper: {
@@ -102,6 +102,7 @@ const ProductScreen = () => {
             <TableContainer
               className={myClasses.addToCartPaper}
               component={Paper}
+              elevation={4}
             >
               <Table>
                 <TableBody>

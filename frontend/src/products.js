@@ -12,6 +12,7 @@ const products = [
     rating: 4.5,
     numReviews: 12,
   },
+
   {
     _id: '2',
     name: 'iPhone 11 Pro 256GB Memory',
