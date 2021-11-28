@@ -3,7 +3,11 @@ import products from './products.js';
 
 import dotenv from 'dotenv';
 
+import connectDb from './config/db.js';
+
 dotenv.config();
+
+connectDb();
 
 const app = express();
 
