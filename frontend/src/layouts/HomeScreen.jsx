@@ -2,31 +2,47 @@ import React, { Fragment, useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
 import { Container, Grid } from '@mui/material';
 import MainHeader from './MainHeader';
-import axios from 'axios';
+import { listProducts } from '../actions/productActions';
+import { useDispatch, useSelector } from 'react-redux';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const HomeScreen = () => {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+
+  const productList = useSelector((state) => state.productList);
+  const { loading, products, error } = productList;
 
   useEffect(() => {
-    const getProducts = async () => {
-      const res = await axios.get('/api/products');
+    dispatch(listProducts());
+  }, [dispatch]);
 
-      setProducts(res.data);
-    };
-
-    getProducts();
-  }, []);
+  console.log(error, loading);
 
   return (
     <Fragment>
       <MainHeader />
-      <Container sx={{ marginTop: '7rem' }}>
-        <Grid container rowSpacing={4} columnSpacing={4}>
-          {products?.map((product) => (
-            <ProductCard product={product} />
-          ))}
-        </Grid>
-      </Container>
+      {loading ? (
+        <Container sx={{ marginTop: '7rem' }}>
+          <CircularProgress color="primary" size={40} />
+        </Container>
+      ) : error ? (
+        <Container sx={{ marginTop: '7rem' }}>
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            <strong>{error}</strong>
+          </Alert>
+        </Container>
+      ) : (
+        <Container sx={{ marginTop: '7rem' }}>
+          <Grid container rowSpacing={4} columnSpacing={4}>
+            {products?.map((product) => (
+              <ProductCard product={product} />
+            ))}
+          </Grid>
+        </Container>
+      )}
     </Fragment>
   );
 };
