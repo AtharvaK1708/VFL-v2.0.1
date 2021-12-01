@@ -18,8 +18,6 @@ const HomeScreen = () => {
     dispatch(listProducts());
   }, [dispatch]);
 
-  console.log(error, loading);
-
   return (
     <Fragment>
       <MainHeader />
