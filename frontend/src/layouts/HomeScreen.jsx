@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
 import { Container, Grid } from '@mui/material';
 import MainHeader from './MainHeader';
@@ -36,7 +36,7 @@ const HomeScreen = () => {
         <Container sx={{ marginTop: '7rem' }}>
           <Grid container rowSpacing={4} columnSpacing={4}>
             {products?.map((product) => (
-              <ProductCard product={product} />
+              <ProductCard key={product?._id} product={product} />
             ))}
           </Grid>
         </Container>

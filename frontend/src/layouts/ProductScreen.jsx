@@ -11,6 +11,9 @@ import {
   TableCell,
   TableContainer,
   TableBody,
+  Select,
+  MenuItem,
+  FormControl,
 } from '@mui/material';
 import MainHeader from './MainHeader';
 import { makeStyles } from '@mui/styles';
@@ -21,6 +24,7 @@ import { listProductsDetails } from '../actions/productActions';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import CircularProgress from '@mui/material/CircularProgress';
+import { useNavigate } from 'react-router';
 
 const useStyles = makeStyles({
   productImage: {
@@ -55,16 +59,21 @@ const useStyles = makeStyles({
 const ProductScreen = () => {
   const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate();
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
   // const product = products.find((p) => p._id === params.id);
   const myClasses = useStyles();
 
+  const [quantity, setQuantity] = useState(1);
+
   useEffect(() => {
     dispatch(listProductsDetails(params.id));
-  }, [dispatch]);
+  }, [dispatch, params.id]);
 
-  // const product = {};
+  const addToCartHandler = () => {
+    navigate(`/cart/${params.id}?quantity=${quantity}`);
+  };
 
   return (
     <div>
@@ -143,6 +152,29 @@ const ProductScreen = () => {
                           : 'Out Of Stock'}
                       </TableCell>
                     </TableRow>
+                    {product?.countInStock > 0 && (
+                      <TableRow>
+                        <TableCell>Select Quantity</TableCell>
+                        <TableCell>
+                          <FormControl>
+                            <Select
+                              sx={{ width: '109px' }}
+                              value={quantity}
+                              onChange={(e) => setQuantity(e.target.value)}
+                            >
+                              {[...Array(product?.countInStock).keys()].map(
+                                (x) => (
+                                  <MenuItem key={x + 1} value={x + 1}>
+                                    {x + 1}
+                                  </MenuItem>
+                                )
+                              )}
+                            </Select>
+                          </FormControl>
+                        </TableCell>
+                      </TableRow>
+                    )}
+
                     <TableRow>
                       <TableCell>
                         <Button
@@ -152,6 +184,7 @@ const ProductScreen = () => {
                           size="large"
                           fullwidth
                           color="darkButton"
+                          onClick={addToCartHandler}
                         >
                           Add to Cart
                         </Button>

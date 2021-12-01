@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import HomeScreen from './layouts/HomeScreen';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProductScreen from './layouts/ProductScreen';
+import CartScreen from './layouts/CartScreen';
 
 const theme = createTheme({
   palette: {
@@ -35,6 +36,8 @@ const App = () => {
             <Route path="/" element={<LandingPage />} exact />
             <Route path="/products" element={<HomeScreen />} exact />
             <Route path="/products/:id" element={<ProductScreen />} exact />
+            <Route path="/cart/:id" element={<CartScreen />} />
+            <Route path="/cart" element={<CartScreen />} />
           </Routes>
         </ThemeProvider>
       </Fragment>
