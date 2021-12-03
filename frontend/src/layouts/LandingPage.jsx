@@ -59,7 +59,7 @@ const LandingPage = () => {
                     startIcon={<ExitToAppIcon />}
                     sx={{ marginLeft: '20px' }}
                     color="buttonColor"
-                    href="/#!"
+                    href="/login"
                   >
                     Log In
                   </Button>

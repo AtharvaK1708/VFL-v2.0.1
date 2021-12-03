@@ -4,6 +4,7 @@ import {
   getProductById,
   getProducts,
 } from '../controllers/productControllers.js';
+import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 

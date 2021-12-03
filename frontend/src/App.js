@@ -5,6 +5,8 @@ import HomeScreen from './layouts/HomeScreen';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProductScreen from './layouts/ProductScreen';
 import CartScreen from './layouts/CartScreen';
+import LoginScreen from './layouts/LoginScreen';
+import RegisterScreen from './layouts/RegisterScreen';
 
 const theme = createTheme({
   palette: {
@@ -38,6 +40,8 @@ const App = () => {
             <Route path="/products/:id" element={<ProductScreen />} exact />
             <Route path="/cart/:id" element={<CartScreen />} />
             <Route path="/cart" element={<CartScreen />} />
+            <Route path="/login" element={<LoginScreen />} />
+            <Route path="/register" element={<RegisterScreen />} />
           </Routes>
         </ThemeProvider>
       </Fragment>
