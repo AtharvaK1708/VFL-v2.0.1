@@ -96,7 +96,9 @@ const MainHeader = () => {
                   horizontal: 'left',
                 }}
               >
-                <MenuItem onClick={() => navigate('/')}>Profile</MenuItem>
+                <MenuItem onClick={() => navigate('/profile')}>
+                  Profile
+                </MenuItem>
                 <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem onClick={logoutHandler}>Logout</MenuItem>
               </Menu>

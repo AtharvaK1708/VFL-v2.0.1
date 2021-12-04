@@ -7,6 +7,7 @@ import ProductScreen from './layouts/ProductScreen';
 import CartScreen from './layouts/CartScreen';
 import LoginScreen from './layouts/LoginScreen';
 import RegisterScreen from './layouts/RegisterScreen';
+import ProfileScreen from './layouts/ProfileScreen';
 
 const theme = createTheme({
   palette: {
@@ -42,6 +43,7 @@ const App = () => {
             <Route path="/cart" element={<CartScreen />} />
             <Route path="/login" element={<LoginScreen />} />
             <Route path="/register" element={<RegisterScreen />} />
+            <Route path="/profile" element={<ProfileScreen />} />
           </Routes>
         </ThemeProvider>
       </Fragment>

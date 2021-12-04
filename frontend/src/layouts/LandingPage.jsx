@@ -5,6 +5,7 @@ import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import LandingHeader from './LandingHeader';
 import vector from '../images/vector.jpg';
+import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
 
 const LandingPage = () => {
   return (
@@ -50,6 +51,7 @@ const LandingPage = () => {
                     variant="contained"
                     startIcon={<AppRegistrationIcon />}
                     color="buttonColor"
+                    href="/register"
                   >
                     Sign Up
                   </Button>
@@ -62,6 +64,16 @@ const LandingPage = () => {
                     href="/login"
                   >
                     Log In
+                  </Button>
+                  <Button
+                    size="large"
+                    variant="contained"
+                    startIcon={<Inventory2OutlinedIcon />}
+                    sx={{ marginLeft: '20px' }}
+                    color="buttonColor"
+                    href="/products"
+                  >
+                    View Products
                   </Button>
                 </Paper>
               </Grid>

@@ -35,6 +35,7 @@ const useStyles = makeStyles({
   paper: {
     width: '25rem',
     height: '25rem',
+    backgroundColor: 'rgb(224, 242, 241)',
   },
   link: {
     textDecoration: 'none',
@@ -80,7 +81,9 @@ const ProductScreen = () => {
       <MainHeader />
       {loading ? (
         <Container sx={{ marginTop: '7rem' }}>
-          <CircularProgress color="primary" size={40} />
+          <Grid align="center">
+            <CircularProgress color="primary" size={20} />
+          </Grid>
         </Container>
       ) : error ? (
         <Container sx={{ marginTop: '7rem' }}>
