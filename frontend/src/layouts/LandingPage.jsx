@@ -65,7 +65,7 @@ const LandingPage = () => {
                   >
                     Log In
                   </Button>
-                  <Button
+                  {/* <Button
                     size="large"
                     variant="contained"
                     startIcon={<Inventory2OutlinedIcon />}
@@ -74,7 +74,7 @@ const LandingPage = () => {
                     href="/products"
                   >
                     View Products
-                  </Button>
+                  </Button> */}
                 </Paper>
               </Grid>
               <Grid item xs={2}>

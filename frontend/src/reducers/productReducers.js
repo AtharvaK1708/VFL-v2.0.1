@@ -18,12 +18,14 @@ export const productListReducer = (state = { products: [] }, action) => {
     return {
       loading: false,
       products: action.payload,
+      redirect: false,
     };
   }
   if (action.type === PRODUCT_LIST_FAIL) {
     return {
       loading: false,
       error: action.payload,
+      redirect: true,
     };
   } else {
     return state;
