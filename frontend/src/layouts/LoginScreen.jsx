@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../actions/userActions';
 import {
@@ -32,12 +32,16 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { loading, error, userInfo } = userLogin;
+  console.log(location.search);
 
   useEffect(() => {
-    if (userInfo) {
+    if (userInfo && location.search !== '?redirect=shipping') {
       navigate('/products');
+    } else if (userInfo && location.search === '?redirect=shipping') {
+      navigate('/shipping');
     }
   }, [dispatch, navigate, userInfo]);
 

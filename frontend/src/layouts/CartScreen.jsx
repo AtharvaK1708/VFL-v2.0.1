@@ -37,7 +37,6 @@ const CartScreen = () => {
   const cart = useSelector((state) => state.cart);
 
   const { cartItems } = cart;
-  console.log(cartItems);
 
   const productId = params.id;
   const quantity = location.search ? Number(location.search.split('=')[1]) : 1;
@@ -51,7 +50,11 @@ const CartScreen = () => {
   }, [dispatch, productId, quantity]);
 
   const checkoutHandler = () => {
-    navigate('/login?redirect=shipping');
+    if (localStorage.getItem('userInfo') !== null) {
+      navigate('/shipping');
+    } else {
+      navigate('/login?redirect=shipping');
+    }
   };
 
   const removeFromCartHandler = (id) => {

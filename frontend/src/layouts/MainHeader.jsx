@@ -37,7 +37,7 @@ const MainHeader = () => {
   };
 
   return (
-    <AppBar elevation={0} color="darkNav">
+    <AppBar elevation={0} sx={{ backgroundColor: '#002884' }}>
       <Container>
         <Toolbar>
           <ShoppingCartIcon
