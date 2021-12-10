@@ -10,6 +10,7 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
         display: 'flex',
         justifyContent: 'center',
         padding: '10px',
+        marginTop: '100px',
       }}
     >
       {step1 ? (

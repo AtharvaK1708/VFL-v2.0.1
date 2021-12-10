@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -7,10 +7,8 @@ import {
   Typography,
   Avatar,
   Grid,
-  TextField,
   Button,
   FormControl,
-  FormLabel,
   RadioGroup,
   FormControlLabel,
   Radio,
@@ -20,13 +18,14 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PaymentIcon from '@mui/icons-material/Payment';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { savePaymentMethod } from '../actions/cartActions';
+import MainHeader from './MainHeader';
 
 const useStyles = makeStyles({
   mainPaper: {
-    height: '60vh',
+    height: '50vh',
     width: '30rem',
     margin: '50px auto',
-    padding: '30px',
+    padding: '50px',
   },
   checkoutSteps: {
     display: 'flex',
@@ -57,6 +56,7 @@ const PaymentScreen = () => {
 
   return (
     <div>
+      <MainHeader />
       <Container>
         <CheckoutSteps step1 step2 step3 />
         <Paper className={myClasses.mainPaper} elevation={0}>
@@ -74,8 +74,8 @@ const PaymentScreen = () => {
               Select a Payment Method
             </Typography>
 
-            <form onSubmit={submitHandler}>
-              <FormControl sx={{ textAlign: 'left' }} component="fieldset">
+            <form style={{ textAlign: 'left' }} onSubmit={submitHandler}>
+              <FormControl component="fieldset">
                 <RadioGroup
                   aria-label="payment-method"
                   defaultValue="PayPal"
@@ -101,22 +101,10 @@ const PaymentScreen = () => {
                 color="primary"
                 type="submit"
                 fullWidth
-                sx={{ marginTop: '30px' }}
+                sx={{ marginTop: '50px' }}
               >
                 Continue
               </Button>
-              <Link to="/cart" style={{ textDecoration: 'none' }}>
-                <Button
-                  variant="contained"
-                  size="large"
-                  color="primary"
-                  fullWidth
-                  sx={{ marginTop: '30px' }}
-                  endIcon={<ArrowBackIcon />}
-                >
-                  Back to cart
-                </Button>
-              </Link>
             </form>
           </Grid>
         </Paper>

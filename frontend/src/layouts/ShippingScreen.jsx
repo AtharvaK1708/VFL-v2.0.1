@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { register } from '../actions/userActions';
 import {
   Container,
   Paper,
@@ -10,18 +9,17 @@ import {
   Grid,
   TextField,
   Button,
-  Alert,
-  AlertTitle,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { saveShippingAddress } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
+import MainHeader from './MainHeader';
 
 const useStyles = makeStyles({
   mainPaper: {
-    height: '90vh',
+    height: '70vh',
     width: '30rem',
     margin: '20px auto',
     padding: '20px',
@@ -55,6 +53,7 @@ const ShippingScreen = () => {
 
   return (
     <div>
+      <MainHeader />
       <Container>
         <CheckoutSteps step1 step2 />
         <Paper className={myClasses.mainPaper} elevation={0}>
@@ -134,18 +133,6 @@ const ShippingScreen = () => {
               >
                 Continue
               </Button>
-              <Link to="/cart" style={{ textDecoration: 'none' }}>
-                <Button
-                  variant="contained"
-                  size="large"
-                  color="primary"
-                  fullWidth
-                  sx={{ marginTop: '30px' }}
-                  endIcon={<ArrowBackIcon />}
-                >
-                  Back to cart
-                </Button>
-              </Link>
             </form>
           </Grid>
         </Paper>
