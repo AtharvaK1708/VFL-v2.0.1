@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -7,17 +7,12 @@ import {
   Typography,
   Avatar,
   Grid,
-  TextField,
   Button,
-  Stack,
-  Item,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { saveShippingAddress } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
 import MainHeader from './MainHeader';
+import { createOrder } from '../actions/orderActions';
 
 const useStyles = makeStyles({
   mainPaper: {
@@ -33,7 +28,30 @@ const useStyles = makeStyles({
 });
 
 const PlaceOrderScreen = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, error, success } = orderCreate;
+
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order._id}`);
+    }
+  });
+
   const placeOrderHandler = () => {
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
     console.log('order placed');
   };
 
@@ -124,7 +142,7 @@ const PlaceOrderScreen = () => {
                 </Grid>
                 <Grid item lg={6}>
                   <Typography variant="subtitle1">
-                    {cartItems.length}
+                    ${cartItems.itemsPrice}
                   </Typography>
                 </Grid>
               </Grid>

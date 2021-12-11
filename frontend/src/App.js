@@ -11,6 +11,7 @@ import ProfileScreen from './layouts/ProfileScreen';
 import ShippingScreen from './layouts/ShippingScreen';
 import PaymentScreen from './layouts/PaymentScreen';
 import PlaceOrderScreen from './layouts/PlaceOrderScreen';
+import OrderScreen from './layouts/OrderScreen';
 
 const theme = createTheme({
   palette: {
@@ -50,6 +51,7 @@ const App = () => {
             <Route path="/shipping" element={<ShippingScreen />} />
             <Route path="/payment" element={<PaymentScreen />} />
             <Route path="/placeorder" element={<PlaceOrderScreen />} />
+            <Route path="/order/:id" element={<OrderScreen />} />
           </Routes>
         </ThemeProvider>
       </Fragment>
