@@ -9,6 +9,8 @@ import {
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAIL,
   ORDER_PAY_RESET,
+  PAYMENT_DETAILS_UPDATED,
+  UPDATE_ISPAID,
 } from '../constants/orderConstants';
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -70,6 +72,20 @@ export const orderPayReducer = (state = {}, action) => {
     return {
       loading: false,
       success: true,
+      paymentDetails: action.payload,
+    };
+  }
+  if (action.type === PAYMENT_DETAILS_UPDATED) {
+    return {
+      loading: false,
+      success: true,
+      paymentDetailsUpdated: action.payload,
+    };
+  }
+  if (action.type === UPDATE_ISPAID) {
+    return {
+      ...state,
+      updatedOrder: action.payload,
     };
   }
   if (action.type === ORDER_PAY_FAIL) {

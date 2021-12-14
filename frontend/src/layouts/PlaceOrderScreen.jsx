@@ -32,11 +32,11 @@ const PlaceOrderScreen = () => {
   const navigate = useNavigate();
 
   const orderCreate = useSelector((state) => state.orderCreate);
-  const { order, error, success } = orderCreate;
+  const { order, success } = orderCreate;
 
   useEffect(() => {
     if (success) {
-      navigate(`/order/${order._id}`);
+      navigate(`/order/${order._id}/pay`);
     }
   });
 

@@ -12,6 +12,7 @@ import ShippingScreen from './layouts/ShippingScreen';
 import PaymentScreen from './layouts/PaymentScreen';
 import PlaceOrderScreen from './layouts/PlaceOrderScreen';
 import OrderScreen from './layouts/OrderScreen';
+import SingleOrderScreen from './layouts/SingleOrderScreen';
 
 const theme = createTheme({
   palette: {
@@ -25,6 +26,10 @@ const theme = createTheme({
     darkButton: {
       main: '#212121',
       contrastText: '#fff',
+    },
+    payButton: {
+      main: '#fdd835',
+      contrastText: '#000',
     },
   },
   typography: {
@@ -51,7 +56,8 @@ const App = () => {
             <Route path="/shipping" element={<ShippingScreen />} />
             <Route path="/payment" element={<PaymentScreen />} />
             <Route path="/placeorder" element={<PlaceOrderScreen />} />
-            <Route path="/order/:id" element={<OrderScreen />} />
+            <Route path="/order/:id/pay" element={<OrderScreen />} />
+            <Route path="/order/:id/" element={<SingleOrderScreen />} />
           </Routes>
         </ThemeProvider>
       </Fragment>

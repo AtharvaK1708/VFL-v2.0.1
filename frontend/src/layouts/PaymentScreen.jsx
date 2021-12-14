@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -14,7 +14,6 @@ import {
   Radio,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PaymentIcon from '@mui/icons-material/Payment';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { savePaymentMethod } from '../actions/cartActions';
@@ -44,7 +43,7 @@ const PaymentScreen = () => {
 
   const dispatch = useDispatch();
 
-  const [paymentMethod, setPaymentMethod] = useState('PayPal');
+  const [paymentMethod, setPaymentMethod] = useState('Stripe');
 
   const myClasses = useStyles();
 
@@ -78,15 +77,9 @@ const PaymentScreen = () => {
               <FormControl component="fieldset">
                 <RadioGroup
                   aria-label="payment-method"
-                  defaultValue="PayPal"
+                  defaultValue="Stripe"
                   name="radio-buttons-group"
                 >
-                  <FormControlLabel
-                    value="PayPal"
-                    control={<Radio />}
-                    label="PayPal or Credit Card"
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                  />
                   <FormControlLabel
                     value="Stripe"
                     control={<Radio />}

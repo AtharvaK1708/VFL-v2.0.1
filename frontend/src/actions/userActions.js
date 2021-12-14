@@ -47,6 +47,8 @@ export const login = (email, password) => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   localStorage.removeItem('userInfo');
   localStorage.removeItem('shippingAddress');
+  localStorage.removeItem('checkoutUrl');
+  localStorage.removeItem('cartItems');
   dispatch({ type: USER_LOGOUT });
   window.location.reload();
 };

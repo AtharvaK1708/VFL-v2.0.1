@@ -9,34 +9,41 @@ import {
   Grid,
   CircularProgress,
   Alert,
-  Button,
 } from '@mui/material';
-import CheckoutSteps from '../components/CheckoutSteps';
 import MainHeader from './MainHeader';
-import { getOrderDetails, payOrder } from '../actions/orderActions';
-import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import {
+  getOrderDetails,
+  getPaymentDetails,
+  updateIsPaid,
+} from '../actions/orderActions';
 
-const OrderScreen = () => {
+const SingleOrderScreen = () => {
   const dispatch = useDispatch();
   const params = useParams();
 
   const orderPay = useSelector((state) => state.orderPay);
-  const { paymentDetails, success } = orderPay;
+  const { paymentDetailsUpdated } = orderPay;
+
+  const paymentResult = {
+    id: paymentDetailsUpdated?.id,
+    status: paymentDetailsUpdated?.status,
+    updateTime: Date.now(),
+    emailAddress: paymentDetailsUpdated?.customer_details?.email,
+  };
+
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { order, error, loading } = orderDetails;
 
   const orderId = params.id;
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
+    dispatch(updateIsPaid(orderId, paymentResult));
 
-    if (!order?.isPaid) {
-      dispatch(payOrder(orderId));
-      console.log('hello');
-    }
+    const checkoutDetails = JSON.parse(localStorage.getItem('checkoutUrl'));
+    dispatch(getPaymentDetails(checkoutDetails.id));
 
     // eslint-disable-next-line
-  }, [dispatch, orderId]);
-
-  const orderDetails = useSelector((state) => state.orderDetails);
-  const { order, error, loading } = orderDetails;
+  }, [dispatch, orderId, order?.isPaid]);
 
   // ! PRICES :
   const addDecimals = (num) => {
@@ -54,12 +61,10 @@ const OrderScreen = () => {
 
   // ! PAYMENT HANDLER
 
-  const paymentHandler = () => {
-    if (!order.isPaid) {
-      const checkoutDetails = JSON.parse(localStorage.getItem('checkoutUrl'));
-      window.open(checkoutDetails.url, '_blank');
-    }
-  };
+  const [reload, setReload] = useState(true);
+  if (!reload) {
+    window.location.reload();
+  }
 
   return (
     <div>
@@ -75,10 +80,13 @@ const OrderScreen = () => {
         <Alert severity="error">{error}</Alert>
       ) : (
         <Container>
-          <CheckoutSteps step1 step2 step3 step4 />
-          <Typography sx={{ fontWeight: '100', margin: '20px 0' }} variant="h4">
+          <Typography
+            sx={{ fontWeight: '100', margin: '100px 20px 0' }}
+            variant="h4"
+          >
             Order Number : {order?._id}
           </Typography>
+
           <Grid sx={{ marginTop: '10px' }} container spacing={2}>
             <Grid item lg={8}>
               <Paper sx={{ padding: '15px' }}>
@@ -216,7 +224,7 @@ const OrderScreen = () => {
                 </Grid>
                 <hr />
               </Paper>
-              <Paper sx={{ padding: '20px', marginTop: '20px' }}>
+              {/* <Paper sx={{ padding: '20px', marginTop: '20px' }}>
                 <Button
                   variant="contained"
                   color="payButton"
@@ -231,8 +239,7 @@ const OrderScreen = () => {
                   onClick={paymentHandler}
                 >
                   Make Payment
-                </Button>
-              </Paper>
+                </Button> */}
             </Grid>
           </Grid>
         </Container>
@@ -241,4 +248,4 @@ const OrderScreen = () => {
   );
 };
 
-export default OrderScreen;
+export default SingleOrderScreen;

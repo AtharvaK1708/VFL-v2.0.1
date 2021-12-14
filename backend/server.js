@@ -7,12 +7,17 @@ import productRoutes from './routes/productRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import cors from 'cors';
+import Stripe from 'stripe';
+import expressAsyncHandler from 'express-async-handler';
 
 dotenv.config();
 
 connectDb();
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json()); // ! to take in POST data
 app.use('/api/products', productRoutes);
