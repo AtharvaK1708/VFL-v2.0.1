@@ -44,13 +44,18 @@ const MainHeader = () => {
             fontSize="large"
             sx={{ color: '#fff', marginRight: '0.7rem' }}
           />
-          <Typography
-            variant="h4"
-            color={'#fff'}
-            sx={{ fontWeight: 'medium', flexGrow: 1 }}
+          <Link
+            to="/products"
+            style={{
+              fontWeight: 'medium',
+              flexGrow: 1,
+              textDecoration: 'none',
+            }}
           >
-            Vocal for Local
-          </Typography>
+            <Typography variant="h4" color={'#fff'}>
+              Vocal for Local
+            </Typography>
+          </Link>
 
           <Link to={'/cart'}>
             <Button
@@ -99,7 +104,6 @@ const MainHeader = () => {
                 <MenuItem onClick={() => navigate('/profile')}>
                   Profile
                 </MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
                 <MenuItem onClick={logoutHandler}>Logout</MenuItem>
               </Menu>
             </>

@@ -1,9 +1,17 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Grid } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import {
+  Grid,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from '@mui/material';
+import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import MainHeader from './MainHeader';
+import moment from 'moment';
 import {
   Paper,
   Typography,
@@ -13,6 +21,9 @@ import {
   AlertTitle,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { getMyOrders } from '../actions/orderActions';
+import CloseIcon from '@mui/icons-material/Close';
+import DoneIcon from '@mui/icons-material/Done';
 
 const useStyles = makeStyles({
   mainPaper: {
@@ -48,6 +59,9 @@ const ProfileScreen = () => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
+  const myOrders = useSelector((state) => state.myOrders);
+  const { loading, myOrderError, orders } = myOrders;
+
   const navigate = useNavigate();
 
   const submitHandler = (e) => {
@@ -65,6 +79,7 @@ const ProfileScreen = () => {
     } else {
       if (!user?.name) {
         dispatch(getUserDetails('profile'));
+        dispatch(getMyOrders());
       } else {
         setName(user?.name);
         setEmail(user?.email);
@@ -157,7 +172,59 @@ const ProfileScreen = () => {
         </Grid>
         <Grid item lg={8}>
           <Paper className={myClasses.secondaryPaper} elevation={0}>
-            Orders
+            {loading ? (
+              <h2>loading</h2>
+            ) : myOrderError ? (
+              <Alert severity="error" sx={{ marginTop: '20px' }}>
+                <AlertTitle>{error}</AlertTitle>
+              </Alert>
+            ) : (
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="left">ID</TableCell>
+                    <TableCell align="left">Date of Order</TableCell>
+                    <TableCell align="left">Total Price</TableCell>
+                    <TableCell align="left">Paid</TableCell>
+                    <TableCell align="left">Delivered</TableCell>
+                    <TableCell align="center"></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {orders.map((order) => (
+                    <TableRow>
+                      <TableCell>{order._id}</TableCell>
+                      <TableCell>
+                        {moment(
+                          new Date(order?.createdAt),
+                          'ddd DD-MMM-YYYY, hh:mm A'
+                        ).format('ddd DD/MM/YYYY hh:mm A')}
+                      </TableCell>
+                      <TableCell>&#8377;{order.totalPrice}</TableCell>
+                      <TableCell>
+                        {moment(
+                          new Date(order?.paidAt),
+                          'ddd DD-MMM-YYYY, hh:mm A'
+                        ).format('ddd DD/MM/YYYY hh:mm A')}
+                      </TableCell>
+                      <TableCell>
+                        {order.isDelivered ? <DoneIcon /> : <CloseIcon />}
+                      </TableCell>
+                      <TableCell>
+                        <Link
+                          style={{ textDecoration: 'none' }}
+                          to={`/order/${order._id}`}
+                        >
+                          <Button size="small" variant="contained">
+                            View Details
+                          </Button>
+                        </Link>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
           </Paper>
         </Grid>
       </Grid>

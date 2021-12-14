@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -19,9 +19,6 @@ import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 const OrderScreen = () => {
   const dispatch = useDispatch();
   const params = useParams();
-
-  const orderPay = useSelector((state) => state.orderPay);
-  const { paymentDetails, success } = orderPay;
 
   const orderId = params.id;
   useEffect(() => {
@@ -157,7 +154,7 @@ const OrderScreen = () => {
                     </Grid>
                     <Grid item lg={4}>
                       <Typography variant="subtitle1">
-                        {item.quantity} X ${item.price} = ${' '}
+                        {item.quantity} X &#8377;{item.price} = &#8377;{' '}
                         {item.quantity * item.price}{' '}
                       </Typography>
                     </Grid>
@@ -177,7 +174,7 @@ const OrderScreen = () => {
                   </Grid>
                   <Grid item lg={6}>
                     <Typography variant="subtitle1">
-                      ${order?.itemsPrice}
+                      &#8377;{order?.itemsPrice}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -188,7 +185,7 @@ const OrderScreen = () => {
                   </Grid>
                   <Grid item lg={6}>
                     <Typography variant="subtitle1">
-                      $ {order?.shippingPrice}
+                      &#8377; {order?.shippingPrice}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -199,7 +196,7 @@ const OrderScreen = () => {
                   </Grid>
                   <Grid item lg={6}>
                     <Typography variant="subtitle1">
-                      $ {order?.taxPrice}{' '}
+                      &#8377; {order?.taxPrice}{' '}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -210,7 +207,7 @@ const OrderScreen = () => {
                   </Grid>
                   <Grid item lg={6}>
                     <Typography variant="subtitle1">
-                      $ {order?.totalPrice}
+                      &#8377; {order?.totalPrice}
                     </Typography>
                   </Grid>
                 </Grid>

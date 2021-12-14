@@ -125,7 +125,7 @@ const ProductScreen = () => {
                 </Typography>
                 <hr></hr>
                 <Typography variant="h6" gutterBottom>
-                  Price: ${product?.price}
+                  Price: &#8377;{product?.price}
                 </Typography>
 
                 <hr></hr>

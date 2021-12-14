@@ -37,7 +37,7 @@ const RegisterScreen = () => {
   const userRegister = useSelector((state) => state.userRegister);
   const navigate = useNavigate();
 
-  const { loading, error, userInfo } = userRegister;
+  const { error, userInfo } = userRegister;
 
   useEffect(() => {
     if (userInfo) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate, useParams, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../actions/userActions';
 import {
@@ -34,7 +34,7 @@ const LoginScreen = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { loading, error, userInfo } = userLogin;
+  const { error, userInfo } = userLogin;
   console.log(location.search);
 
   useEffect(() => {
@@ -43,6 +43,7 @@ const LoginScreen = () => {
     } else if (userInfo && location.search === '?redirect=shipping') {
       navigate('/shipping');
     }
+    //eslint-disable-next-line
   }, [dispatch, navigate, userInfo]);
 
   const loginSubmitHandler = (e) => {

@@ -10,6 +10,8 @@ import {
   ORDER_PAY_FAIL,
   PAYMENT_DETAILS_UPDATED,
   UPDATE_ISPAID,
+  MY_ORDERS_REQUEST,
+  MY_ORDERS_SUCCESS,
 } from '../constants/orderConstants';
 import axios from 'axios';
 
@@ -149,3 +151,24 @@ export const updateIsPaid =
       console.log(error + 'Update ISPAID Error');
     }
   };
+
+export const getMyOrders = () => async (dispatch, getState) => {
+  try {
+    const { userLogin } = getState();
+    const { userInfo } = userLogin;
+
+    dispatch({ type: MY_ORDERS_REQUEST });
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/orders/myOrders`, config);
+
+    dispatch({ type: MY_ORDERS_SUCCESS, payload: data });
+  } catch (error) {
+    console.log(error + 'Payment Details Error');
+  }
+};

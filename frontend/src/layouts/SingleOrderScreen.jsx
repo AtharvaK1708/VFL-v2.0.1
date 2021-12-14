@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -9,6 +9,7 @@ import {
   Grid,
   CircularProgress,
   Alert,
+  AlertTitle,
 } from '@mui/material';
 import MainHeader from './MainHeader';
 import {
@@ -16,13 +17,18 @@ import {
   getPaymentDetails,
   updateIsPaid,
 } from '../actions/orderActions';
+import moment from 'moment';
 
 const SingleOrderScreen = () => {
   const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate();
 
   const orderPay = useSelector((state) => state.orderPay);
   const { paymentDetailsUpdated } = orderPay;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const paymentResult = {
     id: paymentDetailsUpdated?.id,
@@ -40,7 +46,7 @@ const SingleOrderScreen = () => {
     dispatch(updateIsPaid(orderId, paymentResult));
 
     const checkoutDetails = JSON.parse(localStorage.getItem('checkoutUrl'));
-    dispatch(getPaymentDetails(checkoutDetails.id));
+    dispatch(getPaymentDetails(checkoutDetails?.id));
 
     // eslint-disable-next-line
   }, [dispatch, orderId, order?.isPaid]);
@@ -61,11 +67,15 @@ const SingleOrderScreen = () => {
 
   // ! PAYMENT HANDLER
 
+  //eslint-disable-next-line
   const [reload, setReload] = useState(true);
   if (!reload) {
     window.location.reload();
   }
 
+  if (!userInfo?.token) {
+    navigate('/');
+  }
   return (
     <div>
       <MainHeader />
@@ -134,7 +144,14 @@ const SingleOrderScreen = () => {
                     sx={{ margin: '10px 0', padding: '15px' }}
                     severity="success"
                   >
-                    Payment Completed Successfully!
+                    <AlertTitle>Payment Completed Successfully!</AlertTitle>
+                    Payment done on{' '}
+                    <strong>
+                      {moment(
+                        new Date(order?.paidAt),
+                        'ddd DD-MMM-YYYY, hh:mm A'
+                      ).format('ddd DD/MM/YYYY hh:mm A')}
+                    </strong>
                   </Alert>
                 ) : (
                   <Alert
@@ -165,7 +182,7 @@ const SingleOrderScreen = () => {
                     </Grid>
                     <Grid item lg={4}>
                       <Typography variant="subtitle1">
-                        {item.quantity} X ${item.price} = ${' '}
+                        {item.quantity} X &#8377;{item.price} = &#8377;{' '}
                         {item.quantity * item.price}{' '}
                       </Typography>
                     </Grid>
@@ -185,7 +202,7 @@ const SingleOrderScreen = () => {
                   </Grid>
                   <Grid item lg={6}>
                     <Typography variant="subtitle1">
-                      ${order?.itemsPrice}
+                      &#8377;{order?.itemsPrice}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -196,7 +213,7 @@ const SingleOrderScreen = () => {
                   </Grid>
                   <Grid item lg={6}>
                     <Typography variant="subtitle1">
-                      $ {order?.shippingPrice}
+                      &#8377;{order?.shippingPrice}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -207,7 +224,7 @@ const SingleOrderScreen = () => {
                   </Grid>
                   <Grid item lg={6}>
                     <Typography variant="subtitle1">
-                      $ {order?.taxPrice}{' '}
+                      &#8377; {order?.taxPrice}{' '}
                     </Typography>
                   </Grid>
                 </Grid>
@@ -218,28 +235,12 @@ const SingleOrderScreen = () => {
                   </Grid>
                   <Grid item lg={6}>
                     <Typography variant="subtitle1">
-                      $ {order?.totalPrice}
+                      &#8377; {order?.totalPrice}
                     </Typography>
                   </Grid>
                 </Grid>
                 <hr />
               </Paper>
-              {/* <Paper sx={{ padding: '20px', marginTop: '20px' }}>
-                <Button
-                  variant="contained"
-                  color="payButton"
-                  startIcon={<PointOfSaleIcon fontSize="large" />}
-                  sx={{
-                    left: '4%',
-                    height: '3rem',
-                    width: '19rem',
-                    fontWeight: '500',
-                    fontSize: '20px',
-                  }}
-                  onClick={paymentHandler}
-                >
-                  Make Payment
-                </Button> */}
             </Grid>
           </Grid>
         </Container>

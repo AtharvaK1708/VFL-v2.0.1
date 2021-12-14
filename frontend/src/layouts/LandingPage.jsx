@@ -1,13 +1,25 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Container, Typography, Grid, Paper, Button } from '@mui/material';
 import { indigo, teal } from '@mui/material/colors';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import LandingHeader from './LandingHeader';
 import vector from '../images/vector.jpg';
-import Inventory2OutlinedIcon from '@mui/icons-material/Inventory2Outlined';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/products');
+    }
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <Fragment>
       <header>

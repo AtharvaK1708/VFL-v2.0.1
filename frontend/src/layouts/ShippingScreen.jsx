@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { saveShippingAddress } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
 import MainHeader from './MainHeader';

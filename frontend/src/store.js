@@ -14,6 +14,7 @@ import {
 } from './reducers/userReducers';
 
 import {
+  myOrdersReducer,
   orderCreateReducer,
   orderDetailsReducer,
   orderPayReducer,
@@ -29,10 +30,6 @@ const userInfoFromStorage = localStorage.getItem('userInfo')
 
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
   ? JSON.parse(localStorage.getItem('shippingAddress'))
-  : {};
-
-const checkoutUrlFromStorage = localStorage.getItem('checkoutUrl')
-  ? localStorage.getItem('checkoutUrl')
   : {};
 
 const initialState = {
@@ -54,6 +51,7 @@ const reducer = combineReducers({
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,
+  myOrders: myOrdersReducer,
 });
 
 const middleware = [thunk];

@@ -1,6 +1,7 @@
 import express from 'express';
 import {
   addOrderItems,
+  getMyOrders,
   getOrderById,
   getPaymentDetails,
   stripePaymentCheckout,
@@ -12,6 +13,7 @@ import { protect } from '../middleware/authMiddleware.js';
 const router = express.Router();
 
 router.route('/').post(protect, addOrderItems);
+router.route('/myOrders').get(protect, getMyOrders);
 router.route('/:id').get(protect, getOrderById);
 router.route('/:id/updateIsPaid').put(protect, updateOrderToPaid);
 router.route('/stripe-checkout/:id').post(stripePaymentCheckout);

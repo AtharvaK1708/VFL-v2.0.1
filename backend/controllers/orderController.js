@@ -132,3 +132,11 @@ export const getPaymentDetails = expressAsyncHandler(async (req, res) => {
   );
   res.json(paymentDetails);
 });
+
+// ! Get logged in user's orders
+// ! GET /api/orders/myorders
+
+export const getMyOrders = expressAsyncHandler(async (req, res) => {
+  const orders = await Order.find({ user: req.user._id });
+  res.json(orders);
+});

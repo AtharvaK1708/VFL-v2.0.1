@@ -118,7 +118,7 @@ const CartScreen = () => {
                         color="text.secondary"
                         component="div"
                       >
-                        ${item.price}
+                        &#8377;{item.price}
                       </Typography>
                     </CardContent>
                   </Box>
@@ -207,7 +207,7 @@ const CartScreen = () => {
 
                       <TableCell>
                         <Typography variant="h5">
-                          ${' '}
+                          &#8377;{' '}
                           {cartItems
                             .reduce(
                               (acc, item) => acc + item.quantity * item.price,

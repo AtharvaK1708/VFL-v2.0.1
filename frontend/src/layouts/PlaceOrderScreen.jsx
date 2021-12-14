@@ -9,23 +9,9 @@ import {
   Grid,
   Button,
 } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import CheckoutSteps from '../components/CheckoutSteps';
 import MainHeader from './MainHeader';
 import { createOrder } from '../actions/orderActions';
-
-const useStyles = makeStyles({
-  mainPaper: {
-    height: '90vh',
-    width: '30rem',
-    margin: '20px auto',
-    padding: '20px',
-  },
-  checkoutSteps: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
-});
 
 const PlaceOrderScreen = () => {
   const dispatch = useDispatch();
@@ -54,8 +40,6 @@ const PlaceOrderScreen = () => {
     );
     console.log('order placed');
   };
-
-  const myClasses = useStyles();
 
   const cart = useSelector((state) => state.cart);
   const { shippingAddress, paymentMethod, cartItems } = cart;
@@ -122,7 +106,7 @@ const PlaceOrderScreen = () => {
                   </Grid>
                   <Grid item lg={4}>
                     <Typography variant="subtitle1">
-                      {item.quantity} X ${item.price} = ${' '}
+                      {item.quantity} X &#8377;{item.price} = &#8377;{' '}
                       {item.quantity * item.price}{' '}
                     </Typography>
                   </Grid>
@@ -142,7 +126,7 @@ const PlaceOrderScreen = () => {
                 </Grid>
                 <Grid item lg={6}>
                   <Typography variant="subtitle1">
-                    ${cartItems.itemsPrice}
+                    &#8377;{cart.itemsPrice}
                   </Typography>
                 </Grid>
               </Grid>
@@ -153,7 +137,7 @@ const PlaceOrderScreen = () => {
                 </Grid>
                 <Grid item lg={6}>
                   <Typography variant="subtitle1">
-                    $ {cart.shippingPrice}
+                    &#8377; {cart.shippingPrice}
                   </Typography>
                 </Grid>
               </Grid>
@@ -164,7 +148,7 @@ const PlaceOrderScreen = () => {
                 </Grid>
                 <Grid item lg={6}>
                   <Typography variant="subtitle1">
-                    $ {cart.taxPrice}{' '}
+                    &#8377; {cart.taxPrice}{' '}
                   </Typography>
                 </Grid>
               </Grid>
@@ -175,7 +159,7 @@ const PlaceOrderScreen = () => {
                 </Grid>
                 <Grid item lg={6}>
                   <Typography variant="subtitle1">
-                    $ {cart.totalPrice}
+                    &#8377; {cart.totalPrice}
                   </Typography>
                 </Grid>
               </Grid>

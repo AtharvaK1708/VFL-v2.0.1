@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import CircularProgress from '@mui/material/CircularProgress';
-import { getUserDetails } from '../actions/userActions';
 import { useNavigate } from 'react-router';
 
 const HomeScreen = () => {
@@ -17,10 +16,6 @@ const HomeScreen = () => {
   const productList = useSelector((state) => state.productList);
   const { loading, products, error, redirect } = productList;
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
-  const infoFromLocalStorage = localStorage.getItem('userInfo');
   if (redirect) {
     navigate('/login');
   }

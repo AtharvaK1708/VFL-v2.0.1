@@ -30,7 +30,7 @@ const ProductCard = ({ product }) => {
             />
           </Typography>
           <Typography gutterBottom variant="h5" component="div">
-            $ {product.price}
+            &#8377; {product.price}
           </Typography>
         </CardContent>
       </Card>
