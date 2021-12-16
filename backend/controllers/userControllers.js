@@ -103,3 +103,74 @@ export const updateUserProfile = expressAsyncHandler(async (req, res) => {
     throw new Error('No such User');
   }
 });
+
+// ! Get All users
+// ! GET api/users
+// ? PRIVATE && ADMIN
+
+export const getAllUsers = expressAsyncHandler(async (req, res) => {
+  const users = await User.find({});
+  res.json(users);
+});
+
+// ! Delete Users
+// ! DELETE api/users/:id
+// ? PRIVATE && ADMIN
+
+export const deleteUser = expressAsyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    await user.remove();
+    res.json({ message: 'User Successfully Removed' });
+  } else {
+    res.status(401);
+    throw new Error('User Not Found');
+  }
+
+  res.json(user);
+});
+
+// ! Get user By id
+// ! GET api/users/:id
+// ? PRIVATE && ADMIN
+
+export const getUserById = expressAsyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id).select('-password');
+
+  if (user) {
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
+  } else {
+    res.status(401);
+    throw new Error('User Not Found');
+  }
+});
+
+// ! Update user by id
+// ! PUT api/users/:id
+// ? PRIVATE && ADMIN
+
+export const updateUserById = expressAsyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin;
+
+    const updatedUser = await user.save();
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(401);
+    throw new Error('User Not Found');
+  }
+});

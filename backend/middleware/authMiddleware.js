@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import User from '../models/userModel.js';
 import expressAsyncHandler from 'express-async-handler';
+import express from 'express';
 
 const protect = expressAsyncHandler(async (req, res, next) => {
   let token;
@@ -30,4 +31,13 @@ const protect = expressAsyncHandler(async (req, res, next) => {
   }
 });
 
-export { protect };
+const isAdmin = expressAsyncHandler(async (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    res.status(401);
+    throw new Error('Not authorised as admin');
+  }
+});
+
+export { protect, isAdmin };

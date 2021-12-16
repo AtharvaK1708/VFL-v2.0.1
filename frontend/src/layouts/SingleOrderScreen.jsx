@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -10,6 +10,7 @@ import {
   CircularProgress,
   Alert,
   AlertTitle,
+  Button,
 } from '@mui/material';
 import MainHeader from './MainHeader';
 import {
@@ -240,6 +241,23 @@ const SingleOrderScreen = () => {
                   </Grid>
                 </Grid>
                 <hr />
+              </Paper>
+              <Paper sx={{ padding: '20px', marginTop: '20px' }}>
+                <Link to="/products" style={{ textDecoration: 'none' }}>
+                  <Button
+                    variant="contained"
+                    color="payButton"
+                    sx={{
+                      left: '4%',
+                      height: '3rem',
+                      width: '19rem',
+                      fontWeight: '500',
+                      fontSize: '20px',
+                    }}
+                  >
+                    Continue Shopping
+                  </Button>
+                </Link>
               </Paper>
             </Grid>
           </Grid>
