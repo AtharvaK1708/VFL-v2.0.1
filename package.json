@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/AtharvaK1708/VFL-v2.0.1#readme",
   "dependencies": {
+    "@mui/lab": "^5.0.0-alpha.60",
     "@mui/styles": "^5.2.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

@@ -15,6 +15,8 @@ import OrderScreen from './layouts/OrderScreen';
 import SingleOrderScreen from './layouts/SingleOrderScreen';
 import UserListScreen from './layouts/UserListScreen';
 import UserEditScreen from './layouts/UserEditScreen';
+import ProductListScreen from './layouts/ProductListScreen';
+import ProductEditScreen from './layouts/ProductEditScreen';
 
 const theme = createTheme({
   palette: {
@@ -31,6 +33,10 @@ const theme = createTheme({
     },
     payButton: {
       main: '#fdd835',
+      contrastText: '#000',
+    },
+    redButton: {
+      main: '#FF0000',
       contrastText: '#000',
     },
   },
@@ -62,6 +68,11 @@ const App = () => {
             <Route path="/order/:id/" element={<SingleOrderScreen />} />
             <Route path="/admin/userList" element={<UserListScreen />} />
             <Route path="/admin/users/:id/edit" element={<UserEditScreen />} />
+            <Route
+              path="/admin/products/:id/edit"
+              element={<ProductEditScreen />}
+            />
+            <Route path="/admin/productList" element={<ProductListScreen />} />
           </Routes>
         </ThemeProvider>
       </Fragment>

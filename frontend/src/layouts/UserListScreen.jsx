@@ -91,9 +91,10 @@ const UserListScreen = () => {
                     </Link>
                     <Button
                       variant="outlined"
+                      color="redButton"
                       onClick={() => deleteHandler(user._id)}
                     >
-                      <DeleteForeverIcon />
+                      <DeleteForeverIcon sx={{ color: 'red' }} />
                     </Button>
                   </TableCell>
                 </TableRow>

@@ -1,7 +1,7 @@
 body {
-  background-color: rgb(224, 242, 241);
+  background-color: #fff;
 }
-
+/* rgb(224, 242, 241) */
 .cart-link {
   color: 'black';
 }

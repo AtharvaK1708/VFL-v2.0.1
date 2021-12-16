@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import CircularProgress from '@mui/material/CircularProgress';
+import Masonry from '@mui/lab/Masonry';
+
 import { useNavigate } from 'react-router';
 
 const HomeScreen = () => {
@@ -40,11 +42,11 @@ const HomeScreen = () => {
         </Container>
       ) : (
         <Container sx={{ marginTop: '7rem' }}>
-          <Grid container rowSpacing={4} columnSpacing={4}>
+          <Masonry columns={4} spacing={4}>
             {products?.map((product) => (
               <ProductCard key={product?._id} product={product} />
             ))}
-          </Grid>
+          </Masonry>
         </Container>
       )}
     </Fragment>
