@@ -12,6 +12,12 @@ import {
   UPDATE_ISPAID,
   MY_ORDERS_REQUEST,
   MY_ORDERS_SUCCESS,
+  ORDER_LIST_REQUEST,
+  ORDER_LIST_SUCCESS,
+  ORDER_LIST_FAIL,
+  ORDER_DELIVER_REQUEST,
+  ORDER_DELIVER_SUCCESS,
+  ORDER_DELIVER_FAIL,
 } from '../constants/orderConstants';
 import axios from 'axios';
 
@@ -170,5 +176,60 @@ export const getMyOrders = () => async (dispatch, getState) => {
     dispatch({ type: MY_ORDERS_SUCCESS, payload: data });
   } catch (error) {
     console.log(error + 'Payment Details Error');
+  }
+};
+
+export const getAllOrders = () => async (dispatch, getState) => {
+  try {
+    const { userLogin } = getState();
+    const { userInfo } = userLogin;
+
+    dispatch({ type: ORDER_LIST_REQUEST });
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/orders`, config);
+
+    dispatch({ type: ORDER_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: ORDER_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateIsDelivered = (order) => async (dispatch, getState) => {
+  try {
+    const { userLogin } = getState();
+    const { userInfo } = userLogin;
+
+    dispatch({ type: ORDER_DELIVER_REQUEST });
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.put(`/api/orders/${order._id}/updateIsDelivered`, {}, config);
+
+    dispatch({ type: ORDER_DELIVER_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: ORDER_DELIVER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
   }
 };

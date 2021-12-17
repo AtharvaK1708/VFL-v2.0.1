@@ -21,33 +21,27 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Link, useNavigate } from 'react-router-dom';
 import { deleteUser } from '../actions/userActions';
+import { getAllOrders } from '../actions/orderActions';
+import moment from 'moment';
 
-const UserListScreen = () => {
+const OrderListScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userList = useSelector((state) => state.userList);
-  const { users } = userList;
+
+  const orderList = useSelector((state) => state.orderList);
+  const { orders } = orderList;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const userDelete = useSelector((state) => state.userDelete);
-  const { success: successDelete } = userDelete;
-
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispatch(listUsers());
+      dispatch(getAllOrders());
     } else {
       navigate('/products');
     }
     //eslint-disable-next-line
-  }, [dispatch, successDelete]);
-
-  const deleteHandler = (id) => {
-    if (window.confirm('Are you sure you want to delete the user?')) {
-      dispatch(deleteUser(id));
-    }
-  };
+  }, [dispatch]);
 
   return (
     <Fragment>
@@ -57,45 +51,61 @@ const UserListScreen = () => {
           variant="h4"
           sx={{ fontWeight: '100', marginBottom: '30px' }}
         >
-          Users
+          All Orders
         </Typography>
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell>ID</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Admin Access</TableCell>
-                <TableCell></TableCell>
+                <TableCell>User</TableCell>
+                <TableCell>Date</TableCell>
+                <TableCell>Total Price</TableCell>
+                <TableCell>Payment Done</TableCell>
+                <TableCell>Delivery Done</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {users?.map((user) => (
-                <TableRow key={user._id}>
-                  <TableCell>{user._id}</TableCell>
-                  <TableCell>{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
+              {orders?.map((order) => (
+                <TableRow key={order._id}>
+                  <TableCell>{order._id}</TableCell>
+                  <TableCell>{order.user && order.user.name}</TableCell>
                   <TableCell>
-                    {user.isAdmin ? (
-                      <DoneIcon sx={{ color: 'green' }} />
+                    {moment(
+                      new Date(order?.createdAt),
+                      'ddd DD-MMM-YYYY, hh:mm A'
+                    ).format('ddd DD/MM/YYYY hh:mm A')}
+                  </TableCell>
+                  <TableCell>&#8377;{order.totalPrice}</TableCell>
+                  <TableCell>
+                    {order.isPaid ? (
+                      moment(
+                        new Date(order?.paidAt),
+                        'ddd DD-MMM-YYYY, hh:mm A'
+                      ).format('ddd DD/MM/YYYY hh:mm A')
                     ) : (
                       <CloseIcon sx={{ color: 'red' }} />
                     )}
                   </TableCell>
                   <TableCell>
-                    <Link to={`/admin/users/${user._id}/edit`}>
+                    {order.isDelivered ? (
+                      moment(
+                        new Date(order?.deliveredAt),
+                        'ddd DD-MMM-YYYY, hh:mm A'
+                      ).format('ddd DD/MM/YYYY hh:mm A')
+                    ) : (
+                      <CloseIcon sx={{ color: 'red' }} />
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    <Link
+                      to={`/order/${order._id}`}
+                      style={{ textDecoration: 'none' }}
+                    >
                       <Button sx={{ marginRight: '10px' }} variant="outlined">
-                        <EditIcon />
+                        View Details
                       </Button>
                     </Link>
-                    <Button
-                      variant="outlined"
-                      color="redButton"
-                      onClick={() => deleteHandler(user._id)}
-                    >
-                      <DeleteForeverIcon sx={{ color: 'red' }} />
-                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -107,4 +117,4 @@ const UserListScreen = () => {
   );
 };
 
-export default UserListScreen;
+export default OrderListScreen;

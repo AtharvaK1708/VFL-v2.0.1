@@ -26,6 +26,7 @@ import {
   listProducts,
 } from '../actions/productActions';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
 
 const ProductListScreen = () => {
   const dispatch = useDispatch();
@@ -44,12 +45,13 @@ const ProductListScreen = () => {
   const { success: successCreate, product: createdProduct } = productCreate;
 
   useEffect(() => {
-    if (!userInfo.isAdmin) {
+    if (!userInfo?.isAdmin) {
       navigate('/products');
     }
 
     if (successCreate) {
       navigate(`/admin/products/${createdProduct?._id}/edit`);
+      dispatch({ type: PRODUCT_CREATE_RESET });
     } else {
       dispatch(listProducts());
     }

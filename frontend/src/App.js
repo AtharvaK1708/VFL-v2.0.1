@@ -17,6 +17,7 @@ import UserListScreen from './layouts/UserListScreen';
 import UserEditScreen from './layouts/UserEditScreen';
 import ProductListScreen from './layouts/ProductListScreen';
 import ProductEditScreen from './layouts/ProductEditScreen';
+import OrderListScreen from './layouts/OrderListScreen';
 
 const theme = createTheme({
   palette: {
@@ -67,6 +68,7 @@ const App = () => {
             <Route path="/order/:id/pay" element={<OrderScreen />} />
             <Route path="/order/:id/" element={<SingleOrderScreen />} />
             <Route path="/admin/userList" element={<UserListScreen />} />
+            <Route path="/admin/orderList" element={<OrderListScreen />} />
             <Route path="/admin/users/:id/edit" element={<UserEditScreen />} />
             <Route
               path="/admin/products/:id/edit"

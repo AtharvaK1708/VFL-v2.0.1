@@ -44,11 +44,7 @@ const UserEditScreen = () => {
   const { loading, error, user } = userDetails;
 
   const userUpdate = useSelector((state) => state.userUpdate);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = userUpdate;
+  const { success: successUpdate } = userUpdate;
 
   useEffect(() => {
     if (successUpdate) {

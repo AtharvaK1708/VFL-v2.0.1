@@ -16,9 +16,11 @@ import MainHeader from './MainHeader';
 import {
   getOrderDetails,
   getPaymentDetails,
+  updateIsDelivered,
   updateIsPaid,
 } from '../actions/orderActions';
 import moment from 'moment';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 
 const SingleOrderScreen = () => {
   const dispatch = useDispatch();
@@ -27,6 +29,9 @@ const SingleOrderScreen = () => {
 
   const orderPay = useSelector((state) => state.orderPay);
   const { paymentDetailsUpdated } = orderPay;
+
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const { success: successDeliver } = orderDeliver;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -42,15 +47,18 @@ const SingleOrderScreen = () => {
   const { order, error, loading } = orderDetails;
 
   const orderId = params.id;
+
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
+    if (!paymentResult?.updateTime) {
+    }
     dispatch(updateIsPaid(orderId, paymentResult));
 
     const checkoutDetails = JSON.parse(localStorage.getItem('checkoutUrl'));
     dispatch(getPaymentDetails(checkoutDetails?.id));
 
     // eslint-disable-next-line
-  }, [dispatch, orderId, order?.isPaid]);
+  }, [dispatch, orderId, order?.isPaid, order?.isDelivered]);
 
   // ! PRICES :
   const addDecimals = (num) => {
@@ -77,6 +85,12 @@ const SingleOrderScreen = () => {
   if (!userInfo?.token) {
     navigate('/');
   }
+
+  const deliverHandler = () => {
+    dispatch(updateIsDelivered(order));
+    window.location.reload();
+  };
+
   return (
     <div>
       <MainHeader />
@@ -122,7 +136,17 @@ const SingleOrderScreen = () => {
                     sx={{ margin: '10px 0', padding: '15px' }}
                     severity="success"
                   >
-                    The order has been delivered to the address mentioned above!
+                    <AlertTitle>
+                      The order has been delivered to the address mentioned
+                      above!
+                    </AlertTitle>
+                    Payment done on{' '}
+                    <strong>
+                      {moment(
+                        new Date(order?.deliveredAt),
+                        'ddd DD-MMM-YYYY, hh:mm A'
+                      ).format('ddd DD/MM/YYYY hh:mm A')}
+                    </strong>
                   </Alert>
                 ) : (
                   <Alert
@@ -242,11 +266,14 @@ const SingleOrderScreen = () => {
                 </Grid>
                 <hr />
               </Paper>
-              <Paper sx={{ padding: '20px', marginTop: '20px' }}>
-                <Link to="/products" style={{ textDecoration: 'none' }}>
+
+              {userInfo?.isAdmin && order?.isPaid && !order?.isDelivered ? (
+                <Paper sx={{ padding: '20px', marginTop: '20px' }}>
                   <Button
                     variant="contained"
                     color="payButton"
+                    endIcon={<AssignmentTurnedInIcon />}
+                    onClick={deliverHandler}
                     sx={{
                       left: '4%',
                       height: '3rem',
@@ -255,10 +282,28 @@ const SingleOrderScreen = () => {
                       fontSize: '20px',
                     }}
                   >
-                    Continue Shopping
+                    Mark Delivered
                   </Button>
-                </Link>
-              </Paper>
+                </Paper>
+              ) : (
+                <Paper sx={{ padding: '20px', marginTop: '20px' }}>
+                  <Link to="/products" style={{ textDecoration: 'none' }}>
+                    <Button
+                      variant="contained"
+                      color="payButton"
+                      sx={{
+                        left: '4%',
+                        height: '3rem',
+                        width: '19rem',
+                        fontWeight: '500',
+                        fontSize: '20px',
+                      }}
+                    >
+                      Continue Shopping
+                    </Button>
+                  </Link>
+                </Paper>
+              )}
             </Grid>
           </Grid>
         </Container>

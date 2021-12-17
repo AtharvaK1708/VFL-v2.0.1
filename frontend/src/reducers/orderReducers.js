@@ -14,6 +14,12 @@ import {
   MY_ORDERS_REQUEST,
   MY_ORDERS_SUCCESS,
   MY_ORDERS_FAIL,
+  ORDER_LIST_REQUEST,
+  ORDER_LIST_SUCCESS,
+  ORDER_LIST_FAIL,
+  ORDER_DELIVER_REQUEST,
+  ORDER_DELIVER_SUCCESS,
+  ORDER_DELIVER_FAIL,
 } from '../constants/orderConstants';
 
 export const orderCreateReducer = (state = {}, action) => {
@@ -121,6 +127,53 @@ export const myOrdersReducer = (state = { orders: [] }, action) => {
       loading: false,
       error: action.payload,
     };
+  } else {
+    return state;
+  }
+};
+
+export const orderListReducer = (state = { orders: [] }, action) => {
+  if (action.type === ORDER_LIST_REQUEST) {
+    return {
+      loading: true,
+    };
+  }
+  if (action.type === ORDER_LIST_SUCCESS) {
+    return {
+      loading: false,
+      orders: action.payload,
+    };
+  }
+  if (action.type === ORDER_LIST_FAIL) {
+    return {
+      loading: false,
+      error: action.payload,
+    };
+  } else {
+    return state;
+  }
+};
+
+export const orderDeliverReducer = (state = {}, action) => {
+  if (action.type === ORDER_DELIVER_REQUEST) {
+    return {
+      loading: true,
+    };
+  }
+  if (action.type === ORDER_DELIVER_SUCCESS) {
+    return {
+      loading: false,
+      success: true,
+    };
+  }
+  if (action.type === ORDER_DELIVER_FAIL) {
+    return {
+      loading: false,
+      error: action.payload,
+    };
+  }
+  if (action.type === ORDER_DELIVER_FAIL) {
+    return {};
   } else {
     return state;
   }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 import {
   Container,
   Paper,
@@ -11,15 +12,17 @@ import {
   Button,
   Alert,
   AlertTitle,
-  FormControlLabel,
-  FormGroup,
-  Checkbox,
   CircularProgress,
+  Input,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import MainHeader from './MainHeader';
 import EditIcon from '@mui/icons-material/Edit';
-import { listProductsDetails } from '../actions/productActions';
+import { listProductsDetails, updateProduct } from '../actions/productActions';
+import {
+  PRODUCT_DETAILS_RESET,
+  PRODUCT_UPDATE_RESET,
+} from '../constants/productConstants';
 
 const useStyles = makeStyles({
   mainPaper: {
@@ -38,6 +41,7 @@ const ProductEditScreen = () => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
+  const [uploading, setUploading] = useState(false);
 
   const params = useParams();
   const navigate = useNavigate();
@@ -47,25 +51,80 @@ const ProductEditScreen = () => {
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const productUpdate = useSelector((state) => state.productUpdate);
+  const { success: successUpdate } = productUpdate;
+
   useEffect(() => {
-    if (!product?.name || product?._id !== productId) {
-      dispatch(listProductsDetails(productId));
-    } else {
-      setName(product?.name);
-      setPrice(product?.price);
-      setImage(product?.image);
-      setBrand(product?.brand);
-      setCategory(product?.category);
-      setCountInStock(product?.countInStock);
-      setDescription(product?.description);
+    if (!userInfo?.isAdmin) {
+      navigate('/products');
     }
-  }, [product, productId, dispatch]);
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_DETAILS_RESET });
+      dispatch({ type: PRODUCT_UPDATE_RESET });
+      navigate('/admin/productList');
+    } else {
+      if (!product?.name || product?._id !== productId) {
+        dispatch(listProductsDetails(productId));
+      } else {
+        setName(product?.name);
+        setPrice(product?.price);
+        setImage(product?.image);
+        setBrand(product?.brand);
+        setCategory(product?.category);
+        setCountInStock(product?.countInStock);
+        setDescription(product?.description);
+      }
+    }
+  }, [
+    product,
+    productId,
+    dispatch,
+    successUpdate,
+    navigate,
+    userInfo?.isAdmin,
+  ]);
 
   const myClasses = useStyles();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log('UPDATE');
+    dispatch(
+      updateProduct({
+        _id: productId,
+        name: name,
+        price: price,
+        image: image,
+        brand: brand,
+        category: category,
+        countInStock: countInStock,
+        description: description,
+      })
+    );
+  };
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    console.log(file);
+    const formData = new FormData();
+    formData.append('image', file);
+    setUploading(true);
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+
+      const { data } = await axios.post('/api/upload', formData, config);
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.log(error);
+      setUploading(false);
+    }
   };
 
   return (
@@ -97,7 +156,7 @@ const ProductEditScreen = () => {
                 <TextField
                   label="Name"
                   variant="outlined"
-                  placeholder="Enter your Full Name"
+                  placeholder="Enter the Product name"
                   name="name"
                   fullWidth
                   required
@@ -114,11 +173,13 @@ const ProductEditScreen = () => {
                   type="number"
                   required
                   margin="normal"
+                  min="0"
                   sx={{ margin: '30px 0' }}
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
                 />
                 <TextField
+                  sx={{ width: '360px' }}
                   label="Image"
                   variant="outlined"
                   placeholder="Enter your Full Image Url"
@@ -129,6 +190,30 @@ const ProductEditScreen = () => {
                   value={image}
                   onChange={(e) => setImage(e.target.value)}
                 />
+                <label htmlFor="contained-button-file">
+                  {uploading ? (
+                    <h2>loading..</h2>
+                  ) : (
+                    <div style={{ display: 'inline' }}>
+                      <Input
+                        sx={{ display: 'none' }}
+                        accept="image/*"
+                        id="contained-button-file"
+                        multiple
+                        type="file"
+                        onChange={uploadFileHandler}
+                      />
+                      <Button
+                        sx={{ left: '11px', top: '25px' }}
+                        variant="contained"
+                        component="span"
+                      >
+                        Upload Image
+                      </Button>
+                    </div>
+                  )}
+                </label>
+
                 <TextField
                   label="Brand"
                   variant="outlined"
