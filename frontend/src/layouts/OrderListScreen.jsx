@@ -13,14 +13,9 @@ import {
 import React, { Fragment } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listUsers } from '../actions/userActions';
 import MainHeader from './MainHeader';
 import CloseIcon from '@mui/icons-material/Close';
-import DoneIcon from '@mui/icons-material/Done';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Link, useNavigate } from 'react-router-dom';
-import { deleteUser } from '../actions/userActions';
 import { getAllOrders } from '../actions/orderActions';
 import moment from 'moment';
 

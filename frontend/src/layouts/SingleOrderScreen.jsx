@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import {
+  useNavigate,
+  useParams,
+  Link,
+  useSearchParams,
+} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -26,11 +31,15 @@ const SingleOrderScreen = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
+  //eslint-disable-next-line
+  let [searchParams, setSearchParams] = useSearchParams();
+  console.log(searchParams.get('paymentSuccess'));
 
   const orderPay = useSelector((state) => state.orderPay);
   const { paymentDetailsUpdated } = orderPay;
 
   const orderDeliver = useSelector((state) => state.orderDeliver);
+  //eslint-disable-next-line
   const { success: successDeliver } = orderDeliver;
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -50,9 +59,9 @@ const SingleOrderScreen = () => {
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId));
-    if (!paymentResult?.updateTime) {
+    if (searchParams.get('paymentSuccess')) {
+      dispatch(updateIsPaid(orderId, paymentResult));
     }
-    dispatch(updateIsPaid(orderId, paymentResult));
 
     const checkoutDetails = JSON.parse(localStorage.getItem('checkoutUrl'));
     dispatch(getPaymentDetails(checkoutDetails?.id));

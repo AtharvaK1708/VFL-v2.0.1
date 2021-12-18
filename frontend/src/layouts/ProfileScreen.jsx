@@ -208,7 +208,11 @@ const ProfileScreen = () => {
                         ).format('ddd DD/MM/YYYY hh:mm A')}
                       </TableCell>
                       <TableCell>
-                        {order.isDelivered ? <DoneIcon /> : <CloseIcon />}
+                        {order.isDelivered ? (
+                          <DoneIcon sx={{ color: 'green' }} />
+                        ) : (
+                          <CloseIcon sx={{ color: 'red' }} />
+                        )}
                       </TableCell>
                       <TableCell>
                         <Link

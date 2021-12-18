@@ -151,7 +151,7 @@ export const stripePaymentCheckout = expressAsyncHandler(async (req, res) => {
     }),
 
     mode: 'payment',
-    success_url: `${process.env.MAIN_URL}/order/${order._id}`,
+    success_url: `${process.env.MAIN_URL}/order/${order._id}?paymentSuccess=true`,
     cancel_url: `${process.env.MAIN_URL}/order/${order._id}/pay`,
   });
 
