@@ -21,6 +21,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Link, useNavigate } from 'react-router-dom';
 import { deleteUser } from '../actions/userActions';
+import { Helmet } from 'react-helmet';
 
 const UserListScreen = () => {
   const dispatch = useDispatch();
@@ -51,6 +52,9 @@ const UserListScreen = () => {
 
   return (
     <Fragment>
+      <Helmet>
+        <title>Admin Access | User List</title>
+      </Helmet>
       <MainHeader />
       <Container sx={{ marginTop: '100px' }}>
         <Typography

@@ -15,6 +15,7 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { saveShippingAddress } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps';
 import MainHeader from './MainHeader';
+import { Helmet } from 'react-helmet';
 
 const useStyles = makeStyles({
   mainPaper: {
@@ -62,6 +63,9 @@ const ShippingScreen = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Add shipping address</title>
+      </Helmet>
       <MainHeader />
       <Container>
         <CheckoutSteps step1 step2 />

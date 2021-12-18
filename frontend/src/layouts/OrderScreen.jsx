@@ -15,6 +15,7 @@ import CheckoutSteps from '../components/CheckoutSteps';
 import MainHeader from './MainHeader';
 import { getOrderDetails, payOrder } from '../actions/orderActions';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import { Helmet } from 'react-helmet';
 
 const OrderScreen = () => {
   const dispatch = useDispatch();
@@ -60,6 +61,9 @@ const OrderScreen = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Welcome To VFL | Make Payment</title>
+      </Helmet>
       <MainHeader />
 
       {loading ? (

@@ -14,17 +14,22 @@ import {
   Select,
   MenuItem,
   FormControl,
+  InputLabel,
+  TextField,
 } from '@mui/material';
 import MainHeader from './MainHeader';
 import { makeStyles } from '@mui/styles';
 import Rating from '../components/Rating';
 import { grey } from '@mui/material/colors';
 import { useDispatch, useSelector } from 'react-redux';
-import { listProductsDetails } from '../actions/productActions';
+import { createReview, listProductsDetails } from '../actions/productActions';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router';
+import moment from 'moment';
+import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants';
+import { Helmet } from 'react-helmet';
 
 const useStyles = makeStyles({
   productImage: {
@@ -63,21 +68,50 @@ const ProductScreen = () => {
   const navigate = useNavigate();
   const productDetails = useSelector((state) => state.productDetails);
   const { product, loading, error } = productDetails;
-  // const product = products.find((p) => p._id === params.id);
   const myClasses = useStyles();
 
+  const productReviewCreate = useSelector((state) => state.productReviewCreate);
+  const { error: errorProductReview, success: successProductReview } =
+    productReviewCreate;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  //eslint-disable-next-line
+  const { userInfo } = userLogin;
+
   const [quantity, setQuantity] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+  const [greenAlert, setGreenAlert] = useState(false);
 
   useEffect(() => {
+    if (successProductReview) {
+      setGreenAlert(true);
+      setRating(0);
+      setComment('');
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+    }
     dispatch(listProductsDetails(params.id));
-  }, [dispatch, params.id]);
+  }, [dispatch, params.id, successProductReview]);
 
   const addToCartHandler = () => {
     navigate(`/cart/${params.id}?quantity=${quantity}`);
   };
 
+  const submitReviewHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      createReview(params.id, {
+        rating,
+        comment,
+      })
+    );
+  };
+
   return (
     <div>
+      <Helmet>
+        <title>{product?.name}</title>
+      </Helmet>
       <MainHeader />
       {loading ? (
         <Container sx={{ marginTop: '7rem' }}>
@@ -196,6 +230,98 @@ const ProductScreen = () => {
                   </TableBody>
                 </Table>
               </TableContainer>
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={2}>
+            <Grid item lg={6} sx={{ marginTop: '60px', padding: '20px' }}>
+              <Typography sx={{ marginBottom: '10px' }} variant="h5">
+                Reviews
+              </Typography>
+              {product?.reviews.length === 0 ? (
+                <Alert sx={{ marginTop: '20px' }} severity="info">
+                  <AlertTitle>No Reviews for this Product</AlertTitle>
+                </Alert>
+              ) : (
+                product?.reviews.map((review) => (
+                  <Paper sx={{ margin: '20px 0', padding: '10px' }}>
+                    <Container>
+                      <Typography variant="subtitle1">{review.name}</Typography>
+                      <Rating totalRating={review.rating} />
+                      <Typography variant="subtitle2">
+                        Reviewed On :{' '}
+                        {moment(
+                          new Date(review.createdAt),
+                          'ddd DD-MMM-YYYY, hh:mm A'
+                        ).format('ddd DD/MM/YYYY ')}
+                      </Typography>
+                      <Typography
+                        sx={{ marginTop: '20px' }}
+                        variant="subtitle1"
+                      >
+                        {review.comment}
+                      </Typography>
+                    </Container>
+                  </Paper>
+                ))
+              )}
+            </Grid>
+
+            {/*REVIEW*/}
+            <Grid item lg={6} sx={{ marginTop: '60px', padding: '20px' }}>
+              <Typography sx={{ marginBottom: '10px' }} variant="h5">
+                Write a customer review!
+              </Typography>
+              <form onSubmit={submitReviewHandler}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Select Rating
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    // sx={{ width: '109px' }}
+                    defaultValue=""
+                    id="demo-simple-select"
+                    value={rating}
+                    label="Select Rating"
+                    onChange={(e) => setRating(e.target.value)}
+                  >
+                    <MenuItem value="9">Select..</MenuItem>
+                    <MenuItem value="1">1 - Poor</MenuItem>
+                    <MenuItem value="2">2 - Fair</MenuItem>
+                    <MenuItem value="3">3 - Good</MenuItem>
+                    <MenuItem value="4">4 - Very Good</MenuItem>
+                    <MenuItem value="5">5 - Excellent</MenuItem>
+                  </Select>
+                </FormControl>
+                <TextField
+                  multiline
+                  minRows={5}
+                  fullWidth
+                  value={comment}
+                  sx={{ marginTop: '20px' }}
+                  onChange={(e) => setComment(e.target.value)}
+                  placeholder="Write a Comment"
+                ></TextField>
+                {errorProductReview ? (
+                  <Alert sx={{ marginTop: '20px' }} severity="error">
+                    <AlertTitle>You can only review a product once!</AlertTitle>
+                  </Alert>
+                ) : (
+                  greenAlert && (
+                    <Alert sx={{ marginTop: '20px' }} severity="success">
+                      <AlertTitle>Review Submitted successfully</AlertTitle>
+                    </Alert>
+                  )
+                )}
+                <Button
+                  variant="contained"
+                  sx={{ marginTop: '30px', width: '150px' }}
+                  type="submit"
+                >
+                  Submit
+                </Button>
+              </form>
             </Grid>
           </Grid>
         </Container>

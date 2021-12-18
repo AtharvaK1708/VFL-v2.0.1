@@ -40,6 +40,10 @@ const theme = createTheme({
       main: '#FF0000',
       contrastText: '#000',
     },
+    whiteButton: {
+      main: '#eee',
+      contrastText: '#eee',
+    },
   },
   typography: {
     fontFamily: 'Montserrat',
@@ -55,6 +59,12 @@ const App = () => {
         <ThemeProvider theme={theme}>
           <Routes>
             <Route path="/" element={<LandingPage />} exact />
+            <Route path="/products/search/:keyword" element={<HomeScreen />} />
+            <Route path="/products/page/:pageNumber" element={<HomeScreen />} />
+            <Route
+              path="/products/search/:keyword/page/:pageNumber"
+              element={<HomeScreen />}
+            />
             <Route path="/products" element={<HomeScreen />} exact />
             <Route path="/products/:id" element={<ProductScreen />} exact />
             <Route path="/cart/:id" element={<CartScreen />} />

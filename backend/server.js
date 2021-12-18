@@ -12,12 +12,17 @@ import cors from 'cors';
 import Stripe from 'stripe';
 import expressAsyncHandler from 'express-async-handler';
 import path from 'path';
+import morgan from 'morgan';
 
 dotenv.config();
 
 connectDb();
 
 const app = express();
+
+if (process.env.NODE_ENV === 'DEVELOPEMENT') {
+  app.use(morgan('dev'));
+}
 
 app.use(cors());
 

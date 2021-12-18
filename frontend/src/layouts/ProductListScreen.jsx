@@ -27,6 +27,7 @@ import {
 } from '../actions/productActions';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
+import { Helmet } from 'react-helmet';
 
 const ProductListScreen = () => {
   const dispatch = useDispatch();
@@ -73,6 +74,9 @@ const ProductListScreen = () => {
 
   return (
     <Fragment>
+      <Helmet>
+        <title>Admin Access | Product List</title>
+      </Helmet>
       <MainHeader />
       <Container sx={{ marginTop: '100px' }}>
         {loading ? (

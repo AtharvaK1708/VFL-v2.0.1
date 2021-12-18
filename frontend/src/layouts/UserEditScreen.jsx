@@ -20,6 +20,7 @@ import { makeStyles } from '@mui/styles';
 import MainHeader from './MainHeader';
 import EditIcon from '@mui/icons-material/Edit';
 import { getUserDetails, updateUser } from '../actions/userActions';
+import { Helmet } from 'react-helmet';
 import { USER_UPDATE_RESET } from '../constants/userConstants';
 
 const useStyles = makeStyles({
@@ -73,6 +74,9 @@ const UserEditScreen = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Admin Access | Edit User Details</title>
+      </Helmet>
       <MainHeader />
       <Container>
         <Paper className={myClasses.mainPaper} elevation={2}>

@@ -12,6 +12,7 @@ import {
 import CheckoutSteps from '../components/CheckoutSteps';
 import MainHeader from './MainHeader';
 import { createOrder } from '../actions/orderActions';
+import { Helmet } from 'react-helmet';
 
 const PlaceOrderScreen = () => {
   const dispatch = useDispatch();
@@ -64,6 +65,9 @@ const PlaceOrderScreen = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Place Order</title>
+      </Helmet>
       <MainHeader />
       <Container>
         <CheckoutSteps step1 step2 step3 step4 />

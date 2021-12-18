@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import LockIcon from '@mui/icons-material/Lock';
+import { Helmet } from 'react-helmet';
 
 const useStyles = makeStyles({
   mainPaper: {
@@ -59,6 +60,9 @@ const RegisterScreen = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Create an account</title>
+      </Helmet>
       <Container>
         <Paper className={myClasses.mainPaper} elevation={10}>
           <Grid align="center">

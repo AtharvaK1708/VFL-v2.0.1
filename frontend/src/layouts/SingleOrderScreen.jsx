@@ -18,6 +18,7 @@ import {
   Button,
 } from '@mui/material';
 import MainHeader from './MainHeader';
+import { Helmet } from 'react-helmet';
 import {
   getOrderDetails,
   getPaymentDetails,
@@ -102,6 +103,9 @@ const SingleOrderScreen = () => {
 
   return (
     <div>
+      <Helmet>
+        <title> Order Details</title>
+      </Helmet>
       <MainHeader />
 
       {loading ? (

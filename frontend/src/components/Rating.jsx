@@ -51,16 +51,18 @@ const Rating = ({ totalRating, numReviews }) => {
           <StarBorderIcon fontSize="small" />
         )}
       </span>
-      <div
-        style={{
-          display: 'inline-block',
-          position: 'absolute',
-          marginLeft: '12px',
-          marginTop: '2px',
-        }}
-      >
-        from {numReviews} reviews
-      </div>
+      {numReviews && (
+        <div
+          style={{
+            display: 'inline-block',
+            position: 'absolute',
+            marginLeft: '12px',
+            marginTop: '2px',
+          }}
+        >
+          from {numReviews} reviews
+        </div>
+      )}
     </div>
   );
 };

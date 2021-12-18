@@ -18,6 +18,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAllOrders } from '../actions/orderActions';
 import moment from 'moment';
+import { Helmet } from 'react-helmet';
 
 const OrderListScreen = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,9 @@ const OrderListScreen = () => {
 
   return (
     <Fragment>
+      <Helmet>
+        <title>Admin Access | Order List</title>
+      </Helmet>
       <MainHeader />
       <Container sx={{ marginTop: '100px' }}>
         <Typography

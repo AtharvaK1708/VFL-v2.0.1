@@ -19,6 +19,7 @@ import { makeStyles } from '@mui/styles';
 import MainHeader from './MainHeader';
 import EditIcon from '@mui/icons-material/Edit';
 import { listProductsDetails, updateProduct } from '../actions/productActions';
+import { Helmet } from 'react-helmet';
 import {
   PRODUCT_DETAILS_RESET,
   PRODUCT_UPDATE_RESET,
@@ -129,6 +130,9 @@ const ProductEditScreen = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Admin Access | Edit Product</title>
+      </Helmet>
       <MainHeader />
       <Container>
         <Paper className={myClasses.mainPaper} elevation={2}>

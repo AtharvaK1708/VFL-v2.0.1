@@ -7,26 +7,37 @@ import { useDispatch, useSelector } from 'react-redux';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Helmet } from 'react-helmet';
 
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
+import Paginate from '../components/Paginate';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const params = useParams();
+
+  const keyword = params.keyword;
+  const pageNumber = params.pageNumber;
+  // console.log(pageNumber);
 
   const productList = useSelector((state) => state.productList);
-  const { loading, products, error, redirect } = productList;
+  const { loading, products, error, redirect, page, pages } = productList;
+  // console.log(page);
 
   if (redirect) {
     navigate('/login');
   }
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword, pageNumber));
+  }, [dispatch, keyword, pageNumber]);
 
   return (
     <Fragment>
+      <Helmet>
+        <title>Welcome To VFL | Home</title>
+      </Helmet>
       <MainHeader />
       {loading ? (
         <Container sx={{ marginTop: '7rem' }}>
@@ -48,6 +59,12 @@ const HomeScreen = () => {
           </Grid>
         </Container>
       )}
+      {/* {console.log(page)} */}
+      <Paginate
+        pages={pages}
+        page={page && page}
+        keyword={keyword ? keyword : ''}
+      />
     </Fragment>
   );
 };

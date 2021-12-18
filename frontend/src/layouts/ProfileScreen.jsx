@@ -23,6 +23,7 @@ import {
 import { makeStyles } from '@mui/styles';
 import { getMyOrders } from '../actions/orderActions';
 import CloseIcon from '@mui/icons-material/Close';
+import { Helmet } from 'react-helmet';
 import DoneIcon from '@mui/icons-material/Done';
 
 const useStyles = makeStyles({
@@ -89,6 +90,9 @@ const ProfileScreen = () => {
 
   return (
     <Fragment>
+      <Helmet>
+        <title>My Profile</title>
+      </Helmet>
       <MainHeader />
       <Grid container spacing={2}>
         <Grid item lg={4}>
@@ -123,6 +127,7 @@ const ProfileScreen = () => {
                   margin="normal"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  autoComplete="off"
                 />
                 <TextField
                   label="Email"
@@ -132,6 +137,7 @@ const ProfileScreen = () => {
                   fullWidth
                   margin="normal"
                   sx={{ margin: '30px 0' }}
+                  autoComplete="off"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -142,6 +148,7 @@ const ProfileScreen = () => {
                   name="password"
                   type="password"
                   value={password}
+                  autoComplete="off"
                   fullWidth
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -153,6 +160,7 @@ const ProfileScreen = () => {
                   type="password"
                   value={confirmPassword}
                   fullWidth
+                  autoComplete="off"
                   sx={{ margin: '30px 0' }}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
@@ -192,7 +200,7 @@ const ProfileScreen = () => {
                 </TableHead>
                 <TableBody>
                   {orders.map((order) => (
-                    <TableRow>
+                    <TableRow key={order._id}>
                       <TableCell>{order._id}</TableCell>
                       <TableCell>
                         {moment(

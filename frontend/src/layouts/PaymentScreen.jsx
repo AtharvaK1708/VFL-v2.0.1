@@ -18,6 +18,7 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { savePaymentMethod } from '../actions/cartActions';
 import MainHeader from './MainHeader';
+import { Helmet } from 'react-helmet';
 
 const useStyles = makeStyles({
   mainPaper: {
@@ -55,6 +56,9 @@ const PaymentScreen = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Select Payment Method</title>
+      </Helmet>
       <MainHeader />
       <Container>
         <CheckoutSteps step1 step2 step3 />

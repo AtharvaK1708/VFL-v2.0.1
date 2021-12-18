@@ -27,6 +27,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MainHeader from './MainHeader';
 import { removeFromCart } from '../actions/cartActions';
+import { Helmet } from 'react-helmet';
 
 const CartScreen = () => {
   const params = useParams();
@@ -63,6 +64,9 @@ const CartScreen = () => {
 
   return (
     <Fragment>
+      <Helmet>
+        <title>Welcome To VFL | Cart </title>
+      </Helmet>
       <MainHeader />
       <Container sx={{ marginTop: '7rem' }}>
         <Grid container>
