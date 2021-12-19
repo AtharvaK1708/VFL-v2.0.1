@@ -21,7 +21,7 @@ import {
 import axios from 'axios';
 
 export const listProducts =
-  (keyword = '', pageNumber = '') =>
+  (keyword = '', pageNumber = '', productList) =>
   async (dispatch, getState) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
@@ -38,9 +38,9 @@ export const listProducts =
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
-
+      // console.log(productList);
       const { data } = await axios.get(
-        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`,
+        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}&productListPage=${productList}`,
         config
       );
 
@@ -175,7 +175,6 @@ export const createReview =
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
-      console.log('WRITING REVIEW');
       await axios.post(`/api/products/${productId}/reviews`, review, config);
 
       dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });

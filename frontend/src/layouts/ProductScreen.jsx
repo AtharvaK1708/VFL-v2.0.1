@@ -219,7 +219,7 @@ const ProductScreen = () => {
                           disabled={product?.countInStock === 0}
                           variant="contained"
                           size="large"
-                          fullwidth
+                          fullWidth
                           color="darkButton"
                           onClick={addToCartHandler}
                         >
@@ -244,7 +244,10 @@ const ProductScreen = () => {
                 </Alert>
               ) : (
                 product?.reviews.map((review) => (
-                  <Paper sx={{ margin: '20px 0', padding: '10px' }}>
+                  <Paper
+                    key={review._id}
+                    sx={{ margin: '20px 0', padding: '10px' }}
+                  >
                     <Container>
                       <Typography variant="subtitle1">{review.name}</Typography>
                       <Rating totalRating={review.rating} />
@@ -286,7 +289,7 @@ const ProductScreen = () => {
                     label="Select Rating"
                     onChange={(e) => setRating(e.target.value)}
                   >
-                    <MenuItem value="9">Select..</MenuItem>
+                    <MenuItem value="0">Select..</MenuItem>
                     <MenuItem value="1">1 - Poor</MenuItem>
                     <MenuItem value="2">2 - Fair</MenuItem>
                     <MenuItem value="3">3 - Good</MenuItem>

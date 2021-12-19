@@ -19,18 +19,16 @@ const HomeScreen = () => {
 
   const keyword = params.keyword;
   const pageNumber = params.pageNumber;
-  // console.log(pageNumber);
 
   const productList = useSelector((state) => state.productList);
   const { loading, products, error, redirect, page, pages } = productList;
-  // console.log(page);
 
   if (redirect) {
     navigate('/login');
   }
 
   useEffect(() => {
-    dispatch(listProducts(keyword, pageNumber));
+    dispatch(listProducts(keyword, pageNumber, false));
   }, [dispatch, keyword, pageNumber]);
 
   return (
@@ -59,7 +57,6 @@ const HomeScreen = () => {
           </Grid>
         </Container>
       )}
-      {/* {console.log(page)} */}
       <Paginate
         pages={pages}
         page={page && page}

@@ -36,7 +36,6 @@ const LoginScreen = () => {
   const location = useLocation();
 
   const { error, userInfo } = userLogin;
-  console.log(location.search);
 
   useEffect(() => {
     if (userInfo && location.search !== '?redirect=shipping') {

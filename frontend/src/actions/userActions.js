@@ -124,7 +124,6 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   try {
     const { userLogin } = getState();
     const { userInfo } = userLogin;
-    console.log(userInfo.token);
 
     dispatch({ type: USER_UPDATE_PROFILE_REQUEST });
 

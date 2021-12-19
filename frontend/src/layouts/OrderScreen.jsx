@@ -27,7 +27,6 @@ const OrderScreen = () => {
 
     if (!order?.isPaid) {
       dispatch(payOrder(orderId));
-      console.log('hello');
     }
 
     // eslint-disable-next-line

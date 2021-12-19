@@ -60,13 +60,12 @@ const UserEditScreen = () => {
         setIsAdmin(user?.isAdmin);
       }
     }
-  }, [user, userId, dispatch, successUpdate, navigate]);
+  }, [user, userId, dispatch, successUpdate, navigate, isAdmin, loading]);
 
   const myClasses = useStyles();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(name, email, isAdmin);
     dispatch(
       updateUser({ _id: userId, name: name, email: email, isAdmin: isAdmin })
     );
@@ -127,7 +126,7 @@ const UserEditScreen = () => {
 
                 <FormGroup>
                   <FormControlLabel
-                    control={<Checkbox defaultChecked={isAdmin} />}
+                    control={<Checkbox checked={isAdmin} />}
                     label="Give Admin Access"
                     onChange={(e) => setIsAdmin(e.target.checked)}
                   />

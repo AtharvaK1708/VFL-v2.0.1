@@ -6,9 +6,11 @@ import expressAsyncHandler from 'express-async-handler';
 // ! GET api/products
 
 export const getProducts = expressAsyncHandler(async (req, res) => {
-  const pageSize = 4;
-  const page = Number(req.query.pageNumber) || 1;
+  const pageSize = req.query.productListPage === true ? 100 : 4;
 
+  const page = Number(req.query.pageNumber) || 1;
+  console.log(req.query.productListPage);
+  console.log(pageSize);
   const keyword = req.query.keyword
     ? {
         name: {

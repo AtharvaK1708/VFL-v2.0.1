@@ -14,9 +14,9 @@ const ProductCard = ({ product }) => {
         >
           <CardMedia
             component="img"
-            square
             image={product.image}
             alt="product-img"
+            square="true"
           ></CardMedia>
         </Link>
         <CardContent>

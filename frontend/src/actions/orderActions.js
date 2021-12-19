@@ -153,6 +153,7 @@ export const updateIsPaid =
         config
       );
       dispatch({ type: UPDATE_ISPAID, payload: data });
+      localStorage.removeItem('cartItems');
     } catch (error) {
       console.log(error + 'Update ISPAID Error');
     }

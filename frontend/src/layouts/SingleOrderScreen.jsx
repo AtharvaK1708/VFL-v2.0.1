@@ -34,7 +34,6 @@ const SingleOrderScreen = () => {
   const navigate = useNavigate();
   //eslint-disable-next-line
   let [searchParams, setSearchParams] = useSearchParams();
-  console.log(searchParams.get('paymentSuccess'));
 
   const orderPay = useSelector((state) => state.orderPay);
   const { paymentDetailsUpdated } = orderPay;

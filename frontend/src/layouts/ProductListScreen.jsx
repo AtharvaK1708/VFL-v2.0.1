@@ -54,7 +54,8 @@ const ProductListScreen = () => {
       navigate(`/admin/products/${createdProduct?._id}/edit`);
       dispatch({ type: PRODUCT_CREATE_RESET });
     } else {
-      dispatch(listProducts());
+      const productList = true;
+      dispatch(listProducts('', '', productList));
     }
 
     //eslint-disable-next-line

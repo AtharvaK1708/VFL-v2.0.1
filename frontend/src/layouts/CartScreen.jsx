@@ -41,12 +41,10 @@ const CartScreen = () => {
 
   const productId = params.id;
   const quantity = location.search ? Number(location.search.split('=')[1]) : 1;
-  // console.log(quantity, productId);
 
   useEffect(() => {
     if (productId) {
       dispatch(addCartItem(productId, quantity));
-      // console.log(dispatch(addCartItem(productId, quantity)));
     }
   }, [dispatch, productId, quantity]);
 
@@ -88,7 +86,7 @@ const CartScreen = () => {
             </Alert>
           ) : (
             cartItems.map((item) => (
-              <Grid item lg={8} key={item.product}>
+              <Grid item lg={8} sm={12} key={item.product}>
                 <Card
                   sx={{
                     display: 'flex',
@@ -227,7 +225,7 @@ const CartScreen = () => {
                         <Button
                           variant="contained"
                           size="large"
-                          fullwidth
+                          fullWidth
                           color="darkButton"
                           sx={{ left: '30%', width: '16rem' }}
                           onClick={checkoutHandler}

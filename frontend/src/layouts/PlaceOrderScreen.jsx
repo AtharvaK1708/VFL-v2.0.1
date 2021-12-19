@@ -39,7 +39,6 @@ const PlaceOrderScreen = () => {
         totalPrice: cart.totalPrice,
       })
     );
-    console.log('order placed');
   };
 
   const cart = useSelector((state) => state.cart);
