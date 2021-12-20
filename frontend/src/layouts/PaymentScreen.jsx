@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -38,10 +38,18 @@ const PaymentScreen = () => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   if (!shippingAddress) {
     navigate('/shipping');
   }
 
+  useEffect(() => {
+    if (!userInfo?.token) {
+      navigate('/login');
+    }
+  }, [userInfo, navigate]);
   const dispatch = useDispatch();
 
   const [paymentMethod, setPaymentMethod] = useState('Stripe');

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Container,
@@ -20,9 +20,17 @@ import { Helmet } from 'react-helmet';
 const OrderScreen = () => {
   const dispatch = useDispatch();
   const params = useParams();
+  const navigate = useNavigate();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const orderId = params.id;
   useEffect(() => {
+    if (!userInfo?.token) {
+      navigate('/login');
+    }
+
     dispatch(getOrderDetails(orderId));
 
     if (!order?.isPaid) {

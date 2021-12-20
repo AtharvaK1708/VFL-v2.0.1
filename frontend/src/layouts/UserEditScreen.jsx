@@ -47,7 +47,13 @@ const UserEditScreen = () => {
   const userUpdate = useSelector((state) => state.userUpdate);
   const { success: successUpdate } = userUpdate;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   useEffect(() => {
+    if (!userInfo?.token) {
+      navigate('/login');
+    }
     if (successUpdate) {
       dispatch({ type: USER_UPDATE_RESET });
       navigate('/admin/userlist');
@@ -60,7 +66,16 @@ const UserEditScreen = () => {
         setIsAdmin(user?.isAdmin);
       }
     }
-  }, [user, userId, dispatch, successUpdate, navigate, isAdmin, loading]);
+  }, [
+    user,
+    userId,
+    dispatch,
+    successUpdate,
+    navigate,
+    isAdmin,
+    loading,
+    userInfo,
+  ]);
 
   const myClasses = useStyles();
 

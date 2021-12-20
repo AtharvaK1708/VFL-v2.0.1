@@ -58,6 +58,9 @@ const SingleOrderScreen = () => {
   const orderId = params.id;
 
   useEffect(() => {
+    if (!userInfo?.token) {
+      navigate('/login');
+    }
     dispatch(getOrderDetails(orderId));
     if (searchParams.get('paymentSuccess')) {
       dispatch(updateIsPaid(orderId, paymentResult));

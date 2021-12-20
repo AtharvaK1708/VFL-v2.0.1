@@ -84,6 +84,9 @@ const ProductScreen = () => {
   const [greenAlert, setGreenAlert] = useState(false);
 
   useEffect(() => {
+    if (!userInfo?.token) {
+      navigate('/login');
+    }
     if (successProductReview) {
       setGreenAlert(true);
       setRating(0);
@@ -91,7 +94,7 @@ const ProductScreen = () => {
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
     dispatch(listProductsDetails(params.id));
-  }, [dispatch, params.id, successProductReview]);
+  }, [dispatch, params.id, successProductReview, userInfo, navigate]);
 
   const addToCartHandler = () => {
     navigate(`/cart/${params.id}?quantity=${quantity}`);

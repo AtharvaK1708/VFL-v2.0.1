@@ -21,7 +21,13 @@ const PlaceOrderScreen = () => {
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, success } = orderCreate;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   useEffect(() => {
+    if (!userInfo?.token) {
+      navigate('/login');
+    }
     if (success) {
       navigate(`/order/${order._id}/pay`);
     }
