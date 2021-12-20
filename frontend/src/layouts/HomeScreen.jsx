@@ -37,6 +37,7 @@ const HomeScreen = () => {
         <title>Welcome To VFL | Home</title>
       </Helmet>
       <MainHeader />
+      {/* {isMatch && <DrawerComponent userInfo={userInfo} />} */}
       {loading ? (
         <Container sx={{ marginTop: '7rem' }}>
           <CircularProgress color="primary" size={40} />

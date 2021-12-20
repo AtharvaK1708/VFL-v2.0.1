@@ -28,6 +28,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MainHeader from './MainHeader';
 import { removeFromCart } from '../actions/cartActions';
 import { Helmet } from 'react-helmet';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const CartScreen = () => {
   const params = useParams();
@@ -60,6 +62,10 @@ const CartScreen = () => {
     dispatch(removeFromCart(id));
   };
 
+  const theme = useTheme();
+
+  const isMatch = useMediaQuery(theme.breakpoints.down('lg'));
+
   return (
     <Fragment>
       <Helmet>
@@ -67,7 +73,7 @@ const CartScreen = () => {
       </Helmet>
       <MainHeader />
       <Container sx={{ marginTop: '7rem' }}>
-        <Grid container>
+        <Grid container spacing={2}>
           <Typography variant="h3">Shopping Cart</Typography>
           <Link to="/products" style={{ textDecoration: 'none' }}>
             <Button
@@ -174,14 +180,14 @@ const CartScreen = () => {
             ))
           )}
           {cartItems.length > 0 && (
-            <Grid item lg={4}>
+            <Grid item lg={4} sm={12}>
               <TableContainer
                 sx={{
                   width: '500px',
                   marginLeft: '2rem',
                   display: 'inline-block',
                   position: 'absolute',
-                  top: '16rem',
+                  top: isMatch ? '30rem' : '16rem',
                 }}
                 // className={myClasses.addToCartPaper}
                 component={Paper}

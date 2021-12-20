@@ -25,13 +25,13 @@ const Searchbox = () => {
           value={keyword}
           variant="outlined"
           autoComplete="off"
-          sx={{ backgroundColor: '#fff', right: '8rem', borderRadius: '10px' }}
+          sx={{ backgroundColor: '#fff', right: '6rem', borderRadius: '10px' }}
           placeholder="Search Products.."
           onChange={(e) => setKeyword(e.target.value)}
         />
         <Button
           sx={{
-            right: '7rem',
+            right: '5rem',
             top: '3px',
             height: '3.2rem',
           }}
