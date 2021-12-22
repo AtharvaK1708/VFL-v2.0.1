@@ -22,9 +22,6 @@ const LandingPage = () => {
 
   return (
     <Fragment>
-      <header>
-        <LandingHeader />
-      </header>
       <main>
         <div>
           <Container>

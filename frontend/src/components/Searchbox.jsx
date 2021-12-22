@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
 
-const Searchbox = () => {
+const Searchbox = ({ mobileView }) => {
   const [keyword, setKeyword] = useState('');
   const navigate = useNavigate('');
 
@@ -25,17 +25,24 @@ const Searchbox = () => {
           value={keyword}
           variant="outlined"
           autoComplete="off"
-          sx={{ backgroundColor: '#fff', right: '6rem', borderRadius: '10px' }}
+          sx={{
+            backgroundColor: '#fff',
+            right: mobileView ? '0' : '6rem',
+
+            display: mobileView && 'inline',
+            borderRadius: '10px',
+          }}
           placeholder="Search Products.."
           onChange={(e) => setKeyword(e.target.value)}
         />
         <Button
           sx={{
-            right: '5rem',
+            right: mobileView ? '-2rem' : '5rem',
             top: '3px',
+            marginBottom: mobileView && '20px',
             height: '3.2rem',
           }}
-          color="whiteButton"
+          color={mobileView ? 'darkButton' : 'whiteButton'}
           variant="outlined"
           type="submit"
         >

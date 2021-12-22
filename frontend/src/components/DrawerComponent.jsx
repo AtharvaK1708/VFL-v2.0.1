@@ -18,6 +18,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import VFL_logo from '../images/VFL_logo.png';
 
 const DrawerComponent = ({ userInfo, logoutHandler }) => {
   const [state, setState] = React.useState({
@@ -26,7 +27,7 @@ const DrawerComponent = ({ userInfo, logoutHandler }) => {
 
   const toggleDrawer = (anchor, open) => (event) => {
     if (
-      event.type === 'keydown' &&
+      event.type === 'key down' &&
       (event.key === 'Tab' || event.key === 'Shift')
     ) {
       return;
@@ -55,10 +56,26 @@ const DrawerComponent = ({ userInfo, logoutHandler }) => {
             onClick={toggleDrawer('left', false)}
             onKeyDown={toggleDrawer('left', false)}
           >
-            <List>
-              <Link to="/products">
+            <List
+              sx={{
+                height: '80px',
+                backgroundColor: '#3f51b5',
+                position: 'relative',
+              }}
+            >
+              <Link to="/products" style={{ textDecoration: 'none' }}>
                 <ListItem button>
-                  <Typography variant="h6">Vocal for Local</Typography>
+                  <img
+                    src={VFL_logo}
+                    style={{
+                      width: '230px',
+                      height: '230px',
+                      position: 'absolute',
+                      top: '-80px',
+                      left: '12px',
+                    }}
+                    alt="main-logo"
+                  />
                 </ListItem>
               </Link>
             </List>

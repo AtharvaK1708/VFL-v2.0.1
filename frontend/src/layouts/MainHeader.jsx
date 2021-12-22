@@ -1,13 +1,5 @@
 import React, { Fragment } from 'react';
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Avatar,
-  Menu,
-  MenuItem,
-} from '@mui/material';
+import { AppBar, Toolbar, Button, Avatar, Menu, MenuItem } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,6 +10,7 @@ import Searchbox from '../components/Searchbox';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import DrawerComponent from '../components/DrawerComponent';
+import VFL_logo from '../images/VFL_logo.png';
 
 const MainHeader = () => {
   const dispatch = useDispatch();
@@ -69,11 +62,7 @@ const MainHeader = () => {
           elevation={8}
           sx={{ backgroundColor: '#3f51b5', display: isMatch ? 'none' : '' }}
         >
-          <Toolbar sx={{ margin: '0.5rem 2rem' }}>
-            <ShoppingCartIcon
-              fontSize="large"
-              sx={{ color: '#fff', marginRight: '0.7rem' }}
-            />
+          <Toolbar sx={{ maxHeight: '80px' }}>
             <Link
               to="/products"
               style={{
@@ -82,10 +71,18 @@ const MainHeader = () => {
                 textDecoration: 'none',
               }}
             >
-              <Typography variant="h4" color={'#fff'}>
-                Vocal for Local
-              </Typography>
+              <img
+                src={VFL_logo}
+                style={{
+                  width: '250px',
+                  height: '250px',
+                  display: 'inline',
+                  marginLeft: '150px',
+                }}
+                alt="main-logo"
+              />
             </Link>
+
             <Searchbox />
 
             <Link to={'/cart'} style={{ textDecoration: 'none' }}>
