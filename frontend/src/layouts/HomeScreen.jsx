@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Typography } from '@mui/material';
 import MainHeader from './MainHeader';
 import { listProducts } from '../actions/productActions';
 import { useDispatch, useSelector } from 'react-redux';
@@ -58,6 +58,12 @@ const HomeScreen = () => {
       ) : (
         <Container sx={{ marginTop: '7rem' }}>
           {isMatch && <Searchbox mobileView={isMatch} />}
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: '100', marginBottom: '20px' }}
+          >
+            All products
+          </Typography>
           <Grid container rowSpacing={4} columnSpacing={4}>
             {products?.map((product) => (
               <ProductCard key={product?._id} product={product} />

@@ -6,7 +6,7 @@ import { PaginationItem } from '@mui/material';
 const Paginate = ({ pages, page, isAdmin = false, keyword = '' }) => {
   return (
     <Pagination
-      sx={{ display: 'flex', justifyContent: 'center', marginTop: '10rem' }}
+      sx={{ display: 'flex', justifyContent: 'center', marginTop: '6rem' }}
       count={pages}
       color="primary"
       size="large"

@@ -8,7 +8,6 @@ import {
   ListItemIcon,
   ListItemText,
   Divider,
-  Typography,
 } from '@mui/material';
 import ReorderIcon from '@mui/icons-material/Reorder';
 import { Link } from 'react-router-dom';
