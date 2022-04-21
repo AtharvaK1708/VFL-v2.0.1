@@ -6,7 +6,7 @@ import expressAsyncHandler from 'express-async-handler';
 // ! GET api/products
 
 export const getProducts = expressAsyncHandler(async (req, res) => {
-  const pageSize = req.query.productListPage === true ? 100 : 4;
+  const pageSize = req.query.productListPage === true ? 100 : 10;
 
   const page = Number(req.query.pageNumber) || 1;
   console.log(req.query.productListPage);

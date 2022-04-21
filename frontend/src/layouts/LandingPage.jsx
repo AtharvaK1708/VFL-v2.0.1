@@ -3,7 +3,7 @@ import { Container, Typography, Grid, Paper, Button } from '@mui/material';
 import { indigo, teal } from '@mui/material/colors';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import vector from '../images/vector.jpg';
+import vector from '../images/vector.png';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,7 +31,7 @@ const LandingPage = () => {
               columnSpacing={{ xs: 1, sm: 2, md: 3 }}
             >
               <Grid item xs={8} marginTop={10}>
-                <Paper style={{ backgroundColor: '#e0f2f1' }} elevation={0}>
+                <Paper style={{ backgroundColor: '#fff' }} elevation={0}>
                   <Typography
                     gutterBottom
                     variant="h3"

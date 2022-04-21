@@ -40,7 +40,7 @@ const useStyles = makeStyles({
   paper: {
     width: '25rem',
     height: '25rem',
-    backgroundColor: 'rgb(224, 242, 241)',
+    backgroundColor: '#fff',
   },
   link: {
     textDecoration: 'none',
