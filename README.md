@@ -27,5 +27,8 @@ In this website a seller can be given the access to add new products and view/de
 - Multer
 - Express Async Handler
 
+Deployed on Heroku:
+https://vflapp.herokuapp.com/
+
 
 
